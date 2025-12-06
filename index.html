@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Digital Portfolio of Camille Vedani - Embedded Systems Engineering Student & Apprentice at Kyber">
+    <title>Camille Vedani | Engineering Portfolio</title>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a; /* Dark Navy */
+            --accent-color: #6366f1; /* Indigo */
+            --secondary-accent: #0ea5e9; /* Sky Blue */
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --white: #ffffff;
+            --kyber-dark: #1e1e2e;
+            --success-color: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- HERO SECTION --- */
+        header {
+            background-image: url('fond.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            color: var(--white);
+            padding: 5rem 2rem;
+            position: relative; 
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            text-align: left;
+        }
+
+        /* Style photo d'en-tête (petite et ronde) */
+        .header-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        /* Logo N7 */
+        .n7-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 110px;
+            height: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Profile Styles */
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 15px auto;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        /* About Me Specific Styles */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .n7-logo {
+                position: static; 
+                margin-bottom: 20px;
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 25px;
+            border-left: 2px solid #e2e8f0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+
+        .interest-tag {
+            display: inline-flex;
+            align-items: center;
+            background: #f1f5f9;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 3px;
+            color: var(--text-color);
+        }
+
+        .lang-bar {
+            background: #e2e8f0;
+            border-radius: 4px;
+            height: 8px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        .lang-progress {
+            background: var(--secondary-accent);
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Links */
+        .kyber-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px dashed var(--accent-color);
+            transition: all 0.2s;
+        }
+        .kyber-link:hover {
+            background-color: #e0e7ff;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        /* Kyber Section Styles - REMIS EN STANDARD (Uniformisé) */
+        /* Les styles spécifiques de couleur sombre ont été supprimés */
+        
+        .kyber-logo-img {
+            display: block;
+            max-width: 180px;
+            height: auto;
+            margin: 1rem auto 2rem auto;
+        }
+
+        /* Grid & Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: 60%;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .card {
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3, .card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .card h3 {
+            color: var(--accent-color);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        /* Video & Footer */
+        .video-placeholder {
+            margin: 2rem auto;
+            max-width: 100%;
+            height: auto; 
+            background: transparent;
+            display: block;
+            color: #cbd5e1;
+            border-radius: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--primary-color);
+            color: #94a3b8;
+            margin-top: 4rem;
+        }
+        
+        footer h2 {
+            color: var(--white);
+            border-color: var(--white);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#kyber-focus">Current Role</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#career-project">Career & Network</a></li>
+            <li><a href="#mobility">Mobility</a></li>
+            <li><a href="#csr">CSR</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero">
+        <img src="logon7.png" alt="Logo INP-N7" class="n7-logo" onerror="this.style.display='none'">
+        <img src="image.png" alt="Camille Vedani" class="header-photo" onerror="this.style.display='none'">
+
+        <div class="header-content">
+            <h1>Camille Vedani</h1>
+            <p>Apprentice Software Engineer at <a href="#kyber-focus" style="color: inherit; text-decoration: underline;">Kyber</a> | Student at <a href="https://www.enseeiht.fr/fr/index.html" target="_blank" style="color: inherit; text-decoration: underline;">ENSEEIHT</a></p>
+            <p><i>Focus: Embedded Systems, Real-Time & Low-Latency Infrastructure</i></p>
+            
+            <div style="margin-top: 30px;">
+                <a href="CV_VEDANI_EN.pdf" class="btn" target="_blank">Download CV (EN)</a>
+                <a href="CV_VEDANI_FR.pdf" class="btn" target="_blank">Télécharger CV (FR)</a>
+                <a href="https://www.linkedin.com/in/camille-vedani-280967270" class="btn" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+    
+        <section id="about">
+            <h2>About Me: Bridging Life Sciences & Embedded Systems</h2>
+            <div class="about-grid">
+                
+                <div>
+                    <p style="font-size: 1.15rem; color: var(--primary-color); font-weight: 500;">
+                        My engineering path is driven by a clear goal: <strong>innovating in Medical Embedded Devices</strong> (e.g., Insulin Pumps).
+                    </p>
+                    <p>
+                        Starting with a strong foundation in <strong>Life Sciences</strong>, I pivoted to <strong>Math & CS</strong> to acquire the necessary technical tools. Today, as an apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a>, I am mastering the final piece: <strong>Critical Real-Time Systems</strong>.
+                    </p>
+                    
+                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;">
+
+                    <h3 style="margin-top: 1rem; color: var(--secondary-accent);">🎓 Education Path</h3>
+                    
+                    <div class="timeline-item">
+                        <strong>2025 - 2026: 1st Year FISA Engineering Program (Digital Sciences)</strong><br>
+                        <em>ENSEEIHT, Toulouse</em><br>
+                        <small>Major in <strong>Computer Science & Networks</strong> (Work-study program).<br>
+                        Engineering Cycle via Apprenticeship.
+                        <a href="#kyber-focus" style="color:var(--accent-color); font-weight:600; text-decoration:none;">Apprenticeship at Kyber</a>
+                        </small>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>2024 - 2025: Master 1 SECIL (Embedded Systems)</strong><br>
+                        <em>Université Toulouse III - Paul Sabatier / ENSEEIHT</em><br>
+                        <small>Embedded & Connected Systems: Infrastructure and Software.</small>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <strong>2022 - 2024: Double Licence Math & Info</strong><br>
+                        <em>Aix-Marseille Université</em><br>
+                        <small>Intensive dual degree in Mathematics and Computer Science. Strengthening logic and algorithms.</small>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <strong>2020 - 2022: CPGE BCPST</strong><br>
+                        <em>Lycée Thiers, Marseille</em><br>
+                        <small>Biologie, Chimie, Physique et Sciences de la Terre. <br>High-level training in Life Sciences & Physics.</small>
+                    </div>
+                </div>
+
+                <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                         <div style="font-size: 2rem;"></div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <strong>Languages</strong>
+                        <div style="font-size: 0.9rem; margin-top: 10px;">
+                            <div style="display:flex; justify-content:space-between;"><span>🇬🇧 English (C1)</span> <span>Professional</span></div>
+                            <div class="lang-bar"><div class="lang-progress" style="width: 95%;"></div></div>
+                            
+                            <div style="display:flex; justify-content:space-between;"><span>🇪🇸 Spanish (B2)</span> <span>Advanced</span></div>
+                            <div class="lang-bar"><div class="lang-progress" style="width: 70%;"></div></div>
+                            
+                            <div style="font-size: 0.85rem; color: #64748b; margin-top:5px;">
+                                + Notions in 🇸🇦 Arabic & 🇷🇺 Russian
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong>Passions & Interests</strong>
+                        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Engineering requires a curious mind.</p>
+                        <div>
+                            <span class="interest-tag">🏊‍♀️ Swimming</span>
+                            <span class="interest-tag">🚀 Rocket Launches</span>
+                            <span class="interest-tag">✈️ Aviation (FlightRadar)</span>
+                            <span class="interest-tag">🎭 Theatre & Cinema</span>
+                            <span class="interest-tag">🧳 Travel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Languages</h3>
+                    <span class="tag">Python</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">C / C++</span>
+                    <span class="tag">Rust</span> 
+                    <span class="tag">OCaml</span>
+                    <span class="tag">VHDL</span>
+                </div>
+                <div class="card">
+                    <h3>Tools & Infrastructure</h3>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">ROS</span>
+                    <span class="tag">Linux (Embedded)</span>
+                    <span class="tag">LaTeX</span>
+                    <span class="tag">WebAssembly (Wasm)</span> 
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Apprentice Software Engineer | <a href="#kyber-focus" class="kyber-link">Kyber</a></h3>
+                <p><strong>Toulouse, France | 2024 - Present</strong></p>
+                <p>Contributing to the "Next Gen Infrastructure for Real Time Interactions".</p>
+                <ul>
+                    <li>Developing the Kyber SDK to enable remote control with sub-20ms latency.</li>
+                    <li>Implementing network protocols based on QUIC and WebTransport for high-performance streaming.</li>
+                    <li>Refactoring and optimizing the Rust/Wasm codebase for seamless web browser integration.</li>
+                </ul>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--accent-color);">
+                    <strong> Professional Growth:</strong> Adapting to a fast-paced R&D environment, learning Rust from scratch, and collaborating on patents.
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Research Intern (Optimization of XDD) | IRIT</h3>
+                <p><strong>Toulouse, France | May - July 2025 (Forecasted)</strong></p>
+                <p>Supervised by Hugues Cassé. Focus on embedded systems optimization and worst-case execution time analysis.</p>
+            </div>
+
+            <div class="card">
+                <h3>Research Intern (Probabilistic Automata) | LIS (CNRS)</h3>
+                <p><strong>Marseille, France | June - July 2023</strong></p>
+                <p>Validation of double license. Supervised by Benjamin Monmege.</p>
+                <p><em>Reflection:</em> Gained deep understanding of state reduction algorithms and academic research methodology.</p>
+            </div>
+        </section>
+
+        <section id="kyber-focus" class="kyber-section">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap;">
+                <h2>Current Role</h2>
+            </div>
+
+            <img src="logo.png" alt="Kyber Logo" class="kyber-logo-img" onerror="this.style.display='none'">
+            
+            <p style="font-size: 1.2rem; color: var(--accent-color); margin-bottom: 1rem; text-align: center;">
+                Building the "Next Gen Infrastructure for Real Time Interactions".
+            </p>
+
+            <div style="text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <p style="margin-bottom: 1.5rem;">
+                    Led by <strong>Jean-Baptiste Kempf</strong> (CEO of Kyber & President of VideoLAN), this is his new ambitious venture to solve the latency problem once and for all.
+                </p>
+                
+                <a href="https://www.youtube.com/watch?v=0Vtg245ZDbU" target="_blank" class="btn" style="background-color: #FF0000; color: white; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;">
+                    <span style="font-size: 1.2em;">&#9658;</span> Watch Project Explanation (Video)
+                </a>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 8px;">
+                    <em>Deep dive into the tech with JB Kempf.</em>
+                </p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 The Vision</h3>
+                    <p>We are creating a world where life-saving robot surgeries, drones, or immersive agents can be remotely operated with <strong>no delay</strong>. Our goal is to enable "Near-Human Latency" (< 50ms), allowing machines to feel like they are at your fingertips.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>⚡ Performance: 8ms</h3>
+                    <p>When controlling a machine, low latency is more important than video quality. Kyber delivers <strong>glass-to-glass latency down to 8ms</strong>. This enables true "Machine to Machine" interactions and AI agents controlling remote hardware.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🛠️ Technology Stack</h3>
+                    <p>A patented network protocol based on <strong>QUIC</strong> and <strong>WebTransport</strong>. The core is built upon <strong>VLC</strong> and <strong>FFmpeg</strong> open-source tech, utilizing <strong>Rust</strong> and <strong>WebAssembly (Wasm)</strong> for high-performance browser integration.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Academic & Personal Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>MCP Server Integration with LLM</h3>
+                    <span class="tag">Python</span><span class="tag">AI</span>
+                    <p><strong>Context:</strong> Enabling local LLM interaction via Model Context Protocol.</p>
+                    <p><strong>Outcome:</strong> Successfully integrated a server allowing AI models to interact with local file systems.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Autonomous Sailboat Model</h3>
+                    <span class="tag">Embedded</span><span class="tag">Hardware</span>
+                    <p><strong>Role:</strong> Designed the control system logic.</p>
+                    <p><strong>Outcome:</strong> Functional prototype capable of basic navigation and wind adjustment.</p>
+                    <a href="WhatsApp Video 2025-11-25 at 18.53.29.mp4" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
+                        <span style="font-size: 1.1em; vertical-align: middle;">&#9658;</span> Watch Demo Video
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h3>SAT-SOLVER Implementation</h3>
+                    <span class="tag">Java</span><span class="tag">Algorithm</span>
+                    <p>Implementation of the DPLL algorithm for boolean satisfiability problems.</p>
+                    <p><strong>Key Learning:</strong> Optimization of recursive algorithms and data structures in Java.</p>
+                    
+                    <a href="https://github.com/AyoubBarich/DPLL_SAT_SOLVER" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
+                        <span style="font-size: 1.1em; vertical-align: middle;">&#9881;</span> View Code on GitHub
+                    </a>
+                </div>
+                <div class="card">
+                    <h3>Scientific Article: Molecular Logic Gates</h3>
+                    <span class="tag">Writing</span><span class="tag">Research</span>
+                    <p>Vulgarization of a scientific article on automata made of molecular logic gates. Published on EasyChair.</p>
+                    
+                    <a href="Article_DRIM_2022__Copy_.pdf" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
+                        <span style="font-size: 1.1em; vertical-align: middle;">&#128196;</span> Read Article (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; background: #f8fafc; padding: 20px; border-radius: 8px;">
+                <p style="margin-bottom: 10px; font-weight: 500;">Want to see more?</p>
+                <a href="https://github.com/camved" target="_blank" class="btn" style="background-color: #24292e;">
+                    <span style="font-size: 1.2em; vertical-align: middle; margin-right: 5px;">📂</span> Link to my other projects on GitHub
+                </a>
+            </div>
+        </section>
+
+        <section id="career-project">
+            <h2>Career Project & Professional Network</h2>
+            
+            <div class="video-placeholder">
+                <video controls width="100%" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                    <source src="elevated.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>My Past</h3>
+                    <p>Building a strong mathematical and algorithmic foundation through a Double License in Math & CS (Aix-Marseille) and CPGE BCPST. Developed a passion for logical gates and automata theory.</p>
+                </div>
+                <div class="card">
+                    <h3>My Present</h3>
+                    <p>Specializing in <strong>Networks and Telecommunications</strong> at ENSEEIHT to master sensor connectivity for medical devices (like insulin pumps). Simultaneously applying theory to real-time, low-latency challenges as an Apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a> using Rust and QUIC.</p>
+                </div>
+                <div class="card">
+                    <h3>My Future</h3>
+                    <p>Aspiring to become an expert in <strong>critical embedded systems</strong> and <strong>connected sensors</strong>. My goal is to contribute to the "Next Gen Infrastructure for Real Time Interactions" and design devices that significantly improve the daily lives of patients.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Inspiration & Network</h3>
+            <p><strong>Professional Network:</strong> Active member of the ENSEEIHT Alumni Association and regular attendee of Toulouse Embedded Systems Meetups.</p>
+            
+            <div class="grid" style="margin-top: 1.5rem;">
+                <div class="card profile-card">
+                    <img src="jb.png" alt="Jean-Baptiste Kempf" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
+                    <h4>Profile 1: Jean-Baptiste Kempf</h4>
+                    <p><strong>Roles:</strong> CTO of Scaleway, President of VideoLAN (VLC) and Kyber</p>
+                    <p style="text-align: left;"><strong>Inspiration:</strong> Massive Open Source Impact: Leading the VideoLAN/VLC project, one of the world’s most successful open-source media players, demonstrating leadership in developing globally adopted, non-proprietary software.</p>
+                </div>
+                <div class="card profile-card">
+                    <img src="gilles.png" alt="Giles Lepinard" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
+                    <h4>Profile 2: Giles Lepinard</h4>
+                    <p><strong>Roles:</strong> Software and Systems Project Lead at Thales, CEO of Virevoile</p>
+                    <p style="text-align: left;"><strong>Inspiration:</strong> His structural leadership and organizational rigor are paramount, showing that detailed framework planning is crucial for the resilience and successful advancement of complex projects. Furthermore, the creation of Virevoile—an Open Source project linking his passion for sailing with code and embedded engineering—is a strong model for transforming personal drive into tangible technical impact.</p>
+                </div>
+                <div class="card">
+                    <img src="redhat.png" alt="redhat" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
+                    <h4>Profile 3: Red Team Insight</h4>
+                    <p>Recent exchange with a professional <strong>Red Team Operator</strong> (Ethical Hacking). I was captivated by the versatility of the role and the "perpetual enigma" involved in uncovering vulnerabilities.</p>
+                    <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-color);">
+                        <strong>Key Takeaway:</strong> This interaction highlighted the powerful link between mathematical logic and cybersecurity, reinforcing my drive to build resilient, safety-critical systems.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mobility">
+            <h2>International Mobility Projects</h2>
+
+            <p style="font-size: 0.9rem; margin-top: -15px;">
+                <a href="reunion-14-11-2025.txt" target="_blank" style="color: var(--secondary-accent); font-weight: 600;">
+                    Link to proof
+                </a>
+            </p>
+
+            <p>Targeting universities with strong Embedded Systems, Robotics, or Real-Time OS programs.</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Option 1: TU Munich (TUM)</h3>
+                    <p><strong>Country:</strong> Germany 🇩🇪</p>
+                    <p><strong>Program:</strong> Electronics and Automation (Code 0714).</p>
+                    <p><strong>Why:</strong> Elite technical university rivaling ETH. Located in the industrial hub of embedded systems (Siemens, BMW), ideal for critical systems & robotics.</p>
+                    <p><strong>Status:</strong>  <span style="color: #22c55e;">🟢 Course compatibility checked</span></p>
+                </div>
+
+                <div class="card">
+                    <h3>Option 2: KTH Royal Institute</h3>
+                    <p><strong>Country:</strong> Sweden 🇸🇪</p>
+                    <p><strong>Program:</strong> MSc in Embedded Systems.</p>
+                    <p><strong>Why:</strong> Specific focus on dependable systems and formal methods. Strong ties with industrial giants (Scania, Ericsson).</p>
+                    <p><strong>Status:</strong> <span style="color: #eab308;">🟡 Analyzing prerequisites (GRE/GPA)</span></p>
+                </div>
+
+                <div class="card">
+                    <h3>Option 3: International Internship</h3>
+                    <p><strong>Location:</strong> Worldwide 🌍 (Flexible)</p>
+                    <p>Actively seeking a technical internship of <strong>at least 9 weeks</strong> to validate my international mobility. My goal is to contribute to the <strong>Medical & HealthTech</strong> sector by applying my expertise in <strong>Embedded Systems</strong> and <strong>Safety-Critical Engineering</strong>.</p>
+                    <p style="margin-top: 10px; font-size: 0.95rem; color: var(--accent-color);">
+                        👉 <em> <a href="CV_VEDANI_EN.pdf" style="color:var(--accent-color); font-weight:600; text-decoration:none;">Hiring? My CV is available here.</a></em>
+                    </p>
+                    <p><strong>Status:</strong> <span style="color: #22c55e;">🟢 Open to Opportunities</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="csr">
+            <h2>CSR Engagement</h2>
+            <div class="card">
+                <h3>Why CSR matters in Engineering?</h3>
+                <p>
+                    Engineering is not just about solving technical problems; it is about building a future that is inclusive and sustainable. In the medical field especially, ensuring algorithms are open, secure, and accessible is a matter of ethics and social justice.
+                </p>
+                
+                <h3 style="margin-top: 1.5rem;">My Commitments</h3>
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Tutoring at Parkours:</strong> Providing academic support for high schoolers to promote equal education opportunities.</li>
+                    <li>
+                        <a href="https://www.1jeune1mentor.fr/pourquoi-devenir-mentor?utm_source=google&utm_medium=cpc&id=18506938490&utm_term=b%C3%A9n%C3%A9volat%20soutien%20scolaire&utm_content=142008978676&utm_campaign=AfC_1J1M_S_GoogleAdsPayant_Mentor_B%C3%A9n%C3%A9volat&gad_source=1&gad_campaignid=18506938490&gclid=Cj0KCQiAosrJBhD0ARIsAHebCNrqq5EdFDLqmtZQlZn3QRMkppL1i3v08DUzErTWKFCRc6SQknHG8PIaAoiIEALw_wcB" target="_blank" style="color: var(--accent-color); text-decoration: none;">
+                            <strong>Mentorship:</strong>
+                        </a> 
+                        [Future Goal] Helping younger students discover embedded systems.
+                    </li>
+                    <li><strong>Open Source Health:</strong> As a diabetic person, one of my objectives is to make an open-source solution to have algorithms for insulin pumps, making this accessible to everyone.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <h2>Contact</h2>
+            <p><strong>Camille Vedani</strong></p>
+            <p><a href="mailto:camille.vedani@outlook.fr" style="color: #cbd5e1;">camille.vedani@outlook.fr</a></p>
+            <p>Toulouse, France</p>
+            <br>
+            <p><small>&copy; 2025 Camille Vedani - Lifelong Digital Portfolio</small></p>
+        </footer>
+
+    </div>
+</body>
+</html>
