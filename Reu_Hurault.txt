@@ -1,0 +1,45 @@
+Première réunion : 14/11/2025 à 17h
+Présents : Camille VEDANI, Simon LATAPIE (en remplacement du MA) et Aurélie HURAULT
+Lieu : Visio conférence
+
+Cette réunion a été l'occasion d'une première prise de contact entre l'entreprise et l'école.
+
+Le rôle du LEA (mise en ligne des comptes rendus par la tutrice et des commentaires de fin de période, qui servent à valider l'UE entreprise par le maître d'apprentissage) a été expliqué.
+
+Les conditions à remplir pour l'obtention du diplôme ont été évoquées :
+ * validation de toutes les UE techniques et entreprise
+ * mobilité internationale → 9 semaines de mobilité – les différentes possibilités ont été expliquées -- il faudra faire attention avec la livraison du matériel pour le diabète
+ * niveau d'anglais → a priori OK -- tout est en anglais dans l'entreprise (chat + daily)
+ * engagement civique → discussion sur la façon de le valider -- des choses autour de l'open source avec son entreprise ?
+
+Les deux moments où le travail en entreprise sera présenté ont été décrits :
+ * session poster en début de 2e année
+ * soutenance de projet de fin d'études en fin de 3e année
+
+Le calendrier de l'alternance a été précisé, avec la volonté qu'il n'y ait pas de travail lié à l'école pendant les périodes en entreprise. En contrepartie, l'entreprise ne peut pas demander à l'apprentie de venir durant les périodes scolaires.
+
+Le planning des UE a été présenté.
+
+Entreprise : Kyber — l'une des sociétés qui gravitent autour de l'open source français et européen.
+Ils ont l'habitude de gérer des apprentis → sujet choisi pour eux, sans contrainte client.
+Levée de fonds récente → l'entreprise va grossir (actuellement 8/10 personnes, sans doute 20 l'an prochain).
+Ils s'occupent d'un SDK permettant de contrôler des systèmes à distance en ultra-basse latence, avec une ouverture vers la prise en main à distance de drones et de robots.
+Technologie open source, souveraine et multi-systèmes. L'un des facteurs discriminants : la rapidité.
+Cœur en Rust et composants multimédia autour de FFmpeg.
+
+Description de la mission
+Camile a commencé sur la partie client web : statistiques / graphiques des métriques de rapidité de la solution.
+Évolution vers des analyses de statistiques en direct en Rust.
+Inclut des aspects réseau et développement.
+
+Organisation de l'équipe :
+- daily meeting
+- Obligation d'être actif sur le canal de discussion, car chez eux il faut poser beaucoup de questions.
+
+100% de télétravail
+- Pour Camille, aucun souci : toujours en lien avec l'équipe à distance et avec des réponses rapides.
+- Camille est allée à Paris pour rencontrer l'équipe.
+- les personnes en full remote reviennent régulièrement à Paris pour des occasions particulières.
+- pour l'instant tout se passe bien, ça doit rester un point de vigilance.
+
+Pour l'instant, l'intégration de Camille se passe très bien et tout le monde est satisfait. Camille est très motivée.
