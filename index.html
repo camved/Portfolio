@@ -67,10 +67,14 @@
 
         /* --- HERO SECTION --- */
         header {
-            background-image: url('fond.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Fond sombre basé sur tes variables */
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e1b4b 50%, var(--accent-color) 100%);
+            
+            /* Optionnel : Ajoute un motif subtil par-dessus si tu veux du texture */
+            background-image: linear-gradient(135deg, var(--primary-color) 0%, #1e1b4b 50%, var(--accent-color) 100%),
+                            radial-gradient(#ffffff 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px; /* Taille des points */
+            background-blend-mode: overlay;
             
             color: var(--white);
             padding: 5rem 2rem;
