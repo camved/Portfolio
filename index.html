@@ -4,430 +4,1032 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Digital Portfolio of Camille Vedani - Embedded Systems Engineering Student & Apprentice at Kyber">
+    <meta name="theme-color" content="#000000">
     <title>Camille Vedani | Engineering Portfolio</title>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary-color: #0f172a; /* Dark Navy */
-            --accent-color: #6366f1; /* Indigo */
-            --secondary-accent: #0ea5e9; /* Sky Blue */
-            --bg-color: #f8fafc;
-            --text-color: #334155;
-            --white: #ffffff;
-            --kyber-dark: #1e1e2e;
-            --success-color: #10b981;
+            /* Surfaces */
+            --bg: #000000;
+            --panel: #08090c;
+            --panel-2: #0d0f14;
+            --hair: rgba(255, 255, 255, 0.09);
+            --chamfer: #4b5058;
+
+            /* Kyber blues */
+            --blue: #2f8bff;
+            --blue-hi: #6bb4ff;
+            --blue-deep: #0a3a8f;
+            --blue-glow: rgba(47, 139, 255, 0.45);
+
+            /* Type */
+            --text: #f7f9fb;
+            --muted: #c3ccd8;
+            --label: #9fb0c4;
+            --strong: #e6ecf4;
+
+            --display: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --body: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            --nav-h: 68px;
+            --notch: 22px;
+            --maxw: 1180px;
         }
+
+        *, *::before, *::after { box-sizing: border-box; }
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--nav-h) + 24px);
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            font-family: var(--body);
+            font-size: 1.075rem;
+            line-height: 1.68;
+            color: var(--muted);
+            background: var(--bg);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Navigation */
+        h1, h2, h3, h4 {
+            font-family: var(--display);
+            color: var(--text);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        a { color: var(--blue-hi); text-decoration: none; }
+        img { max-width: 100%; }
+
+        :focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+
+        /* ============ SHARED PRIMITIVES ============ */
+
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Chamfered corner — the Kyber "cut corner" signature */
+        .ch     { background-image: linear-gradient(315deg, var(--chamfer) var(--notch), transparent var(--notch)); }
+        .ch-bl  { background-image: linear-gradient(45deg,  var(--chamfer) var(--notch), transparent var(--notch)); }
+        .ch-tr  { background-image: linear-gradient(225deg, var(--chamfer) var(--notch), transparent var(--notch)); }
+        .ch-tl  { background-image: linear-gradient(135deg, var(--chamfer) var(--notch), transparent var(--notch)); }
+
+        .label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--label);
+            margin-bottom: 0.9rem;
+        }
+
+        .card {
+            position: relative;
+            background-color: var(--panel);
+            background-repeat: no-repeat;
+            padding: 30px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+            transition: background-color 0.35s ease, transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease;
+        }
+
+        .card:hover {
+            background-color: var(--panel-2);
+            transform: translateY(-4px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 40px -20px rgba(47, 139, 255, 0.35);
+        }
+
+        .card h3 {
+            margin: 0 0 0.6rem;
+            font-size: 1.55rem;
+        }
+
+        .card h4 { margin: 0 0 0.4rem; font-size: 1.2rem; }
+        .card p { margin: 0 0 0.8rem; font-size: 1.04rem; }
+        .card p:last-child { margin-bottom: 0; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 18px;
+        }
+
+        /* Hairline bento: 1px gaps reveal the container colour */
+        .bento {
+            display: grid;
+            gap: 1px;
+            background: var(--hair);
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        }
+        .bento .card { background-color: #050608; }
+
+        .tag {
+            display: inline-block;
+            font-family: var(--body);
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            color: #a9c8f0;
+            background: rgba(47, 139, 255, 0.1);
+            border: 1px solid rgba(47, 139, 255, 0.22);
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+            margin: 0 5px 8px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-family: var(--body);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: #04070d;
+            background: #e9eef5;
+            padding: 0.72rem 1.35rem;
+            border-radius: 100px;
+            border: 1px solid transparent;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            background: #ffffff;
+            box-shadow: 0 10px 30px -12px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-ghost {
+            color: var(--text);
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(107, 180, 255, 0.55);
+            box-shadow: 0 10px 30px -14px var(--blue-glow);
+        }
+
+        .btn-blue {
+            color: #fff;
+            background: linear-gradient(135deg, var(--blue-deep), var(--blue));
+        }
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #0d49b0, #4b9dff);
+            box-shadow: 0 12px 34px -12px var(--blue-glow);
+        }
+
+        .link-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--blue-hi);
+            margin-top: 6px;
+        }
+        .link-arrow::after {
+            content: '↗';
+            transition: transform 0.25s ease;
+        }
+        .link-arrow:hover::after { transform: translate(3px, -3px); }
+
+        .kyber-link {
+            color: var(--blue-hi);
+            border-bottom: 1px solid rgba(107, 180, 255, 0.35);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .kyber-link:hover { color: #fff; border-bottom-color: #fff; }
+
+        /* ============ NAV ============ */
+
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--blue-deep), var(--blue-hi));
+            z-index: 1200;
+            transition: width 0.1s linear;
+        }
+
         nav {
-            background: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
             z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-wrap: wrap;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        /* --- HERO SECTION --- */
-        header {
-            /* Fond sombre basé sur tes variables */
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1e1b4b 50%, var(--accent-color) 100%);
-            
-            /* Optionnel : Ajoute un motif subtil par-dessus si tu veux du texture */
-            background-image: linear-gradient(135deg, var(--primary-color) 0%, #1e1b4b 50%, var(--accent-color) 100%),
-                            radial-gradient(#ffffff 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px; /* Taille des points */
-            background-blend-mode: overlay;
-            
-            color: var(--white);
-            padding: 5rem 2rem;
-            position: relative; 
-            
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 40px;
-            text-align: left;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        nav.stuck { border-bottom-color: var(--hair); background: rgba(0, 0, 0, 0.88); }
+
+        .nav-inner {
+            max-width: var(--maxw);
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        /* Style photo d'en-tête (petite et ronde) */
-        .header-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--white);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        .wordmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            font-family: var(--display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: -0.01em;
             flex-shrink: 0;
         }
+        .wordmark .mark {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--blue-hi), var(--blue-deep));
+            clip-path: polygon(0 0, 100% 0, 100% 62%, 62% 100%, 0 100%);
+        }
 
-        /* Logo N7 */
-        .n7-logo {
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 26px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--muted);
+            transition: color 0.2s ease;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a[aria-current="true"] { color: var(--text); }
+        .nav-links a[aria-current="true"]::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 110px;
-            height: auto;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px;
-            border-radius: 4px;
+            left: 0; right: 0; bottom: -2px;
+            height: 1px;
+            background: var(--blue);
         }
 
-        /* Layout */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+        .nav-cta {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #04070d;
+            background: #dfeae4;
+            padding: 0.6rem 1.15rem;
+            border-radius: 4px;
+            flex-shrink: 0;
+            transition: background 0.25s ease, transform 0.25s ease;
         }
+        .nav-cta:hover { background: #ffffff; transform: translateY(-1px); }
+
+        .burger {
+            display: none;
+            width: 42px; height: 42px;
+            background: none;
+            border: 1px solid var(--hair);
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .burger span {
+            display: block;
+            width: 17px; height: 1.5px;
+            background: var(--text);
+            transition: transform 0.3s ease, opacity 0.2s ease;
+        }
+        .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ============ HERO ============ */
+
+        header#hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            padding: calc(var(--nav-h) + 70px) 0 60px;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        /* Blue nebula glow */
+        header#hero::before {
+            content: '';
+            position: absolute;
+            top: -22%; left: 50%;
+            width: 1100px; height: 1100px;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(47, 139, 255, 0.28) 0%, rgba(10, 58, 143, 0.14) 38%, transparent 66%);
+            pointer-events: none;
+        }
+        /* Technical grid */
+        header#hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+            background-size: 72px 72px;
+            mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 30%, transparent 78%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 30%, transparent 78%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-portrait {
+            position: relative;
+            margin: 0;
+            background-color: var(--panel);
+            background-repeat: no-repeat;
+            padding: 12px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            --notch: 34px;
+        }
+        .hero-portrait::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: radial-gradient(circle at 50% 30%, rgba(47, 139, 255, 0.3), transparent 68%);
+            filter: blur(26px);
+            z-index: -1;
+        }
+        .hero-portrait img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            object-position: center 20%;
+            filter: saturate(0.95) contrast(1.04);
+        }
+        .hero-portrait figcaption {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--label);
+            padding: 14px 6px 4px;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 38px;
+        }
+        .kyber-icon {
+            display: block;
+            width: 62px;
+            height: auto;
+            border-radius: 14px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        a:hover > .kyber-icon {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px -10px var(--blue-glow);
+        }
+        .n7-logo {
+            width: 160px;
+            height: auto;
+            background: rgba(255, 255, 255, 0.94);
+            padding: 9px 13px;
+            border-radius: 6px;
+        }
+        .hero-top .sep { width: 1px; height: 44px; background: var(--hair); }
+        .hero-top .kyber-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 0.8rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--label);
+        }
+        .dot-live {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--blue-hi);
+            box-shadow: 0 0 0 0 rgba(107, 180, 255, 0.55);
+            animation: pulse 2.6s infinite;
+        }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(107, 180, 255, 0.5); }
+            70%  { box-shadow: 0 0 0 9px rgba(107, 180, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(107, 180, 255, 0); }
+        }
+
+        header#hero h1 {
+            font-size: clamp(3.2rem, 7.4vw, 6rem);
+            font-weight: 200;
+            margin: 0 0 1.4rem;
+            letter-spacing: -0.045em;
+            color: #fff;
+        }
+        header#hero h1 em {
+            font-style: normal;
+            background: linear-gradient(120deg, #ffffff 10%, var(--blue-hi) 55%, var(--blue) 95%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-lede {
+            font-size: clamp(1.2rem, 1.9vw, 1.45rem);
+            font-weight: 300;
+            color: #dbe3ec;
+            max-width: 640px;
+            margin: 0 0 1rem;
+        }
+        .hero-sub {
+            font-size: 1.08rem;
+            color: var(--muted);
+            max-width: 620px;
+            margin: 0 0 2.6rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ============ SECTIONS ============ */
 
         section {
-            margin-bottom: 4rem;
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 96px 0;
+            border-top: 1px solid var(--hair);
         }
 
-        h2 {
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            color: var(--primary-color);
-            display: inline-block;
-            margin-bottom: 1.5rem;
+        .section-head {
+            margin-bottom: 44px;
+            max-width: 720px;
+        }
+        .section-head h2 {
+            font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+            font-weight: 300;
+            margin: 0 0 0.7rem;
+        }
+        .section-head p {
+            margin: 0;
+            font-size: 1.12rem;
+            color: var(--muted);
         }
 
-        /* Profile Styles */
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 15px auto;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .profile-card {
-            text-align: center;
-        }
-
-        /* About Me Specific Styles */
+        /* --- About --- */
         .about-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 46px;
+            align-items: start;
         }
 
-        @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .n7-logo {
-                position: static; 
-                margin-bottom: 20px;
-            }
+        .about-lead {
+            font-family: var(--display);
+            font-size: 1.45rem;
+            font-weight: 300;
+            color: #e4e9f0;
+            line-height: 1.5;
+            margin: 0 0 1.2rem;
         }
 
+        .timeline { margin-top: 2.6rem; }
         .timeline-item {
             position: relative;
             padding-left: 30px;
-            margin-bottom: 25px;
-            border-left: 2px solid #e2e8f0;
+            padding-bottom: 30px;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
         }
-
+        .timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -6px;
-            top: 5px;
-            width: 10px;
-            height: 10px;
+            left: -4.5px; top: 7px;
+            width: 8px; height: 8px;
             border-radius: 50%;
-            background: var(--accent-color);
+            background: var(--blue);
+            box-shadow: 0 0 0 4px rgba(47, 139, 255, 0.14);
         }
+        .timeline-item .yr {
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 0.13em;
+            color: var(--label);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .timeline-item strong {
+            display: block;
+            font-family: var(--display);
+            font-size: 1.22rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+        .timeline-item em {
+            display: block;
+            font-style: normal;
+            font-size: 1rem;
+            color: #c9d3df;
+            margin: 3px 0 5px;
+        }
+        .timeline-item small { font-size: 0.98rem; color: var(--muted); line-height: 1.62; }
+
+        .side-stack { display: grid; gap: 18px; }
+
+        .lang-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            color: #dde4ec;
+            margin-bottom: 7px;
+        }
+        .lang-row span:last-child { color: var(--label); font-size: 0.85rem; }
+        .lang-bar {
+            background: rgba(255, 255, 255, 0.09);
+            height: 3px;
+            width: 100%;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+        .lang-progress {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--blue-deep), var(--blue-hi));
+            transition: width 1.2s cubic-bezier(.22,1,.36,1) 0.15s;
+        }
+        .reveal.in .lang-progress { width: var(--w); }
 
         .interest-tag {
             display: inline-flex;
             align-items: center;
-            background: #f1f5f9;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin: 3px;
-            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--hair);
+            padding: 6px 13px;
+            border-radius: 100px;
+            font-size: 0.92rem;
+            margin: 0 4px 8px 0;
+            color: #d3dbe5;
         }
 
-        .lang-bar {
-            background: #e2e8f0;
-            border-radius: 4px;
-            height: 8px;
-            width: 100%;
-            margin-top: 5px;
-            margin-bottom: 15px;
+        /* --- Kyber showcase --- */
+        #kyber-focus { position: relative; }
+        #kyber-focus::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            width: 900px; height: 600px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse at top, rgba(47, 139, 255, 0.13), transparent 62%);
+            pointer-events: none;
         }
+        #kyber-focus .container { position: relative; z-index: 1; }
 
-        .lang-progress {
-            background: var(--secondary-accent);
-            height: 100%;
-            border-radius: 4px;
-        }
-
-        /* Links */
-        .kyber-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 700;
-            border-bottom: 1px dashed var(--accent-color);
-            transition: all 0.2s;
-        }
-        .kyber-link:hover {
-            background-color: #e0e7ff;
-            border-bottom: 1px solid var(--accent-color);
-        }
-
-        /* Kyber Section Styles - REMIS EN STANDARD (Uniformisé) */
-        /* Les styles spécifiques de couleur sombre ont été supprimés */
-        
         .kyber-logo-img {
             display: block;
-            max-width: 180px;
+            width: min(420px, 78%);
             height: auto;
-            margin: 1rem auto 2rem auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        a:hover > .kyber-logo-img {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 44px -20px var(--blue-glow);
         }
 
-        /* Grid & Cards */
-        .grid {
+        .kyber-bento {
             display: grid;
-            grid-template-columns: 60%;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--hair);
+        }
+        .kyber-bento .card { background-color: #040507; }
+        .tile-latency {
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 25px;
+            align-items: center;
+            padding: 0;
+            min-height: 380px;
+            background:
+                radial-gradient(115% 115% at 50% 50%, #04070e 36%, rgba(22, 104, 216, 0.85) 76%, #4aa3ff 100%) !important;
         }
 
-        .card {
-            border: 1px solid #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            background: #fff;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .orb {
+            position: relative;
+            width: min(210px, 52%);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle, #04070e 52%, rgba(47, 139, 255, 0.12) 100%);
+            border: 1px solid rgba(120, 190, 255, 0.55);
+            box-shadow: 0 0 70px rgba(47, 139, 255, 0.55), inset 0 0 45px rgba(47, 139, 255, 0.3);
+            animation: breathe 4.5s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { box-shadow: 0 0 60px rgba(47, 139, 255, 0.42), inset 0 0 40px rgba(47, 139, 255, 0.25); }
+            50%      { box-shadow: 0 0 95px rgba(47, 139, 255, 0.68), inset 0 0 55px rgba(47, 139, 255, 0.38); }
+        }
+        .orb .val {
+            font-family: var(--display);
+            font-size: clamp(3.4rem, 9vw, 4.6rem);
+            font-weight: 200;
+            color: #dfe8f2;
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+        .orb .unit {
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            color: #9fb4cc;
+            vertical-align: super;
+            margin-left: 4px;
+        }
+        .caret {
+            width: 0; height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            margin: 18px 0;
+        }
+        .caret.down { border-top: 9px solid rgba(220, 232, 245, 0.75); }
+        .caret.up   { border-bottom: 9px solid rgba(220, 232, 245, 0.75); }
+
+        .tile-caption {
+            padding: 26px 30px 30px;
+            width: 100%;
+            background: #040507;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h3, .card h4 {
-            margin-top: 0;
-            color: var(--primary-color);
-        }
-        
-        .card h3 {
-            color: var(--accent-color);
-        }
-
-        .tag {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #4338ca;
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-right: 6px;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        /* Video & Footer */
-        .video-placeholder {
-            margin: 2rem auto;
-            max-width: 100%;
-            height: auto; 
-            background: transparent;
+        /* --- Profiles --- */
+        .profile-card { text-align: left; }
+        .profile-img {
+            width: 74px; height: 74px;
+            border-radius: 50%;
+            object-fit: cover;
             display: block;
-            color: #cbd5e1;
-            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(107, 180, 255, 0.35);
+            filter: grayscale(0.25);
         }
 
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            border-radius: 6px;
-            margin: 5px;
-            transition: background 0.3s;
+        /* --- Status pills --- */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            letter-spacing: 0.05em;
+            padding: 5px 12px;
+            border-radius: 100px;
+            border: 1px solid;
+            margin-top: 6px;
+        }
+        .status::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .status.ok      { color: #4ade80; border-color: rgba(74, 222, 128, 0.28); background: rgba(74, 222, 128, 0.07); }
+        .status.pending { color: #facc15; border-color: rgba(250, 204, 21, 0.28); background: rgba(250, 204, 21, 0.07); }
+
+        .meta {
+            font-size: 0.88rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--label);
+            margin: 0 0 1rem !important;
         }
 
-        .btn:hover {
-            background: #4f46e5;
+        .card ul { margin: 0 0 0.9rem; padding-left: 18px; font-size: 1.02rem; }
+        .card li { margin-bottom: 8px; }
+        .card li::marker { color: var(--blue); }
+
+        .note {
+            font-size: 1rem;
+            color: #b6d1f5;
+            border-left: 2px solid rgba(47, 139, 255, 0.45);
+            padding-left: 14px;
+            margin-top: 16px !important;
         }
-        
+
+        .featured { box-shadow: inset 0 1px 0 rgba(107, 180, 255, 0.35), 0 0 60px -28px var(--blue-glow); }
+
+        /* --- Footer --- */
         footer {
-            text-align: center;
-            padding: 3rem;
-            background: var(--primary-color);
-            color: #94a3b8;
-            margin-top: 4rem;
+            position: relative;
+            padding: 110px 0 60px;
+            border-top: 1px solid var(--hair);
+            overflow: hidden;
         }
-        
+        footer::before {
+            content: '';
+            position: absolute;
+            bottom: -280px; left: 50%;
+            width: 900px; height: 600px;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(47, 139, 255, 0.2), transparent 62%);
+            pointer-events: none;
+        }
+        footer .container { position: relative; z-index: 1; }
         footer h2 {
-            color: var(--white);
-            border-color: var(--white);
+            font-size: clamp(2.1rem, 4.4vw, 3.1rem);
+            font-weight: 300;
+            margin: 0 0 1.4rem;
+        }
+        .mail-link {
+            font-family: var(--display);
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            transition: border-color 0.25s ease, color 0.25s ease;
+        }
+        .mail-link:hover { color: var(--blue-hi); border-bottom-color: var(--blue-hi); }
+
+        .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 14px;
+            align-items: center;
+            margin-top: 70px;
+            padding-top: 26px;
+            border-top: 1px solid var(--hair);
+            font-size: 0.8rem;
+            color: var(--label);
+        }
+        .footer-bottom a { color: var(--muted); }
+        .footer-bottom a:hover { color: var(--text); }
+
+        /* ============ MOTION ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1), transform 0.75s cubic-bezier(.22,1,.36,1);
+            transition-delay: var(--d, 0ms);
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            .reveal .lang-progress { width: var(--w); }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 980px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-portrait { order: -1; max-width: 330px; }
+            .hero-portrait img { aspect-ratio: 1 / 1; }
+            .about-grid { grid-template-columns: 1fr; gap: 34px; }
+            .kyber-bento { grid-template-columns: 1fr; }
+            .tile-latency { grid-row: auto; min-height: 320px; }
+        }
+
+        @media (max-width: 860px) {
+            .burger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: var(--nav-h); left: 0; right: 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                background: rgba(4, 5, 7, 0.97);
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                border-bottom: 1px solid var(--hair);
+                padding: 8px 24px 20px;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(.22,1,.36,1);
+            }
+            .nav-links.open { max-height: 80vh; }
+            .nav-links li { width: 100%; }
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 13px 0;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .nav-links a[aria-current="true"]::after { display: none; }
+            .nav-cta { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            section { padding: 70px 0; }
+            .card { padding: 24px; }
+            .hero-top { flex-wrap: wrap; gap: 14px; }
+            .n7-logo { width: 128px; }
+            .kyber-icon { width: 50px; }
+            .kyber-logo-img { width: min(280px, 88%); }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#kyber-focus">Current Role</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#career-project">Career & Network</a></li>
-            <li><a href="#mobility">Mobility</a></li>
-            <li><a href="#csr">CSR</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+    <div class="scroll-progress" id="progress"></div>
+
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="wordmark"><span class="mark"></span>camille vedani</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#kyber-focus">Kyber</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#career-project">Career</a></li>
+                <li><a href="#mobility">Mobility</a></li>
+                <li><a href="#csr">CSR</a></li>
+            </ul>
+
+            <a href="#contact" class="nav-cta">Contact</a>
+
+            <button class="burger" id="burger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <header id="hero">
-        <img src="logon7.png" alt="Logo INP-N7" class="n7-logo" onerror="this.style.display='none'">
-        <!-- <img src="image.png" alt="Camille Vedani" class="header-photo" onerror="this.style.display='none'"> -->
+        <div class="container hero-inner">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-top reveal">
+                        <a href="https://kyber.tech" target="_blank" rel="noopener" aria-label="Kyber">
+                            <img src="kyber-icon.png" alt="Kyber" class="kyber-icon" onerror="this.style.display='none'">
+                        </a>
+                        <img src="logon7.png" alt="Toulouse INP - ENSEEIHT" class="n7-logo" onerror="this.style.display='none'">
+                        <span class="sep"></span>
+                        <span class="kyber-badge"><span class="dot-live"></span>Apprentice @ Kyber</span>
+                    </div>
 
-        <div class="header-content">
-            <h1>Camille Vedani</h1>
-            <p>Apprentice Software Engineer at <a href="#kyber-focus" style="color: inherit; text-decoration: underline;">Kyber</a> | Student at <a href="https://www.enseeiht.fr/fr/index.html" target="_blank" style="color: inherit; text-decoration: underline;">ENSEEIHT</a></p>
-            <p><i>Focus: Embedded Systems, Real-Time & Low-Latency Infrastructure</i></p>
-            
-            <div style="margin-top: 30px;">
-                <a href="CV_VEDANI_EN.pdf" class="btn" target="_blank">Download CV (EN)</a>
-                <a href="CV_VEDANI_FR.pdf" class="btn" target="_blank">Télécharger CV (FR)</a>
-                <a href="https://www.linkedin.com/in/camille-vedani-280967270" class="btn" target="_blank">LinkedIn</a>
+                    <h1 class="reveal" style="--d:60ms">Camille<br><em>Vedani</em></h1>
+
+                    <p class="hero-lede reveal" style="--d:140ms">
+                        Engineering the layer where software meets the physical world — embedded systems,
+                        real-time constraints and low-latency infrastructure.
+                    </p>
+                    <p class="hero-sub reveal" style="--d:200ms">
+                        Apprentice Software Engineer at <a href="#kyber-focus" class="kyber-link">Kyber</a>,
+                        student at <a href="https://www.enseeiht.fr/fr/index.html" target="_blank" rel="noopener" class="kyber-link">ENSEEIHT</a>.
+                        Long-term goal: medical embedded devices.
+                    </p>
+
+                    <div class="hero-actions reveal" style="--d:260ms">
+                        <a href="CV_VEDANI_EN.pdf" class="btn" target="_blank" rel="noopener">Download CV (EN)</a>
+                        <a href="CV_VEDANI_FR.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Télécharger CV (FR)</a>
+                        <a href="https://www.linkedin.com/in/camille-vedani-280967270" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+
+                <figure class="hero-portrait ch reveal" style="--d:120ms">
+                    <img src="photo.png" alt="Camille Vedani" onerror="this.closest('figure').style.display='none'">
+                    <figcaption><span>Camille Vedani</span><span>Toulouse, FR</span></figcaption>
+                </figure>
             </div>
         </div>
     </header>
 
-    <div class="container">
-    
+    <main>
+
         <section id="about">
-            <h2>About Me: Bridging Life Sciences & Embedded Systems</h2>
-            <div class="about-grid">
-                
-                <div>
-                    <p style="font-size: 1.15rem; color: var(--primary-color); font-weight: 500;">
-                        My engineering path is driven by a clear goal: <strong>innovating in Medical Embedded Devices</strong> (e.g., Insulin Pumps).
-                    </p>
-                    <p>
-                        Starting with a strong foundation in <strong>Life Sciences</strong>, I pivoted to <strong>Math & CS</strong> to acquire the necessary technical tools. Today, as an apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a>, I am mastering the final piece: <strong>Critical Real-Time Systems</strong>.
-                    </p>
-                    
-                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;">
-
-                    <h3 style="margin-top: 1rem; color: var(--secondary-accent);">🎓 Education Path</h3>
-                    
-                    <div class="timeline-item">
-                        <strong>2025 - 2026: 1st Year FISA Engineering Program (Digital Sciences)</strong><br>
-                        <em>ENSEEIHT, Toulouse</em><br>
-                        <small>Major in <strong>Computer Science & Networks</strong> (Work-study program).<br>
-                        Engineering Cycle via Apprenticeship.
-                        <a href="#kyber-focus" style="color:var(--accent-color); font-weight:600; text-decoration:none;">Apprenticeship at Kyber</a>
-                        </small>
-                    </div>
-
-                    <div class="timeline-item">
-                        <strong>2024 - 2025: Master 1 SECIL (Embedded Systems)</strong><br>
-                        <em>Université Toulouse III - Paul Sabatier / ENSEEIHT</em><br>
-                        <small>Embedded & Connected Systems: Infrastructure and Software.</small>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <strong>2022 - 2024: Double Licence Math & Info</strong><br>
-                        <em>Aix-Marseille Université</em><br>
-                        <small>Intensive dual degree in Mathematics and Computer Science. Strengthening logic and algorithms.</small>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <strong>2020 - 2022: CPGE BCPST</strong><br>
-                        <em>Lycée Thiers, Marseille</em><br>
-                        <small>Biologie, Chimie, Physique et Sciences de la Terre. <br>High-level training in Life Sciences & Physics.</small>
-                    </div>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">About me</span>
+                    <h2>Bridging life sciences &amp; embedded systems</h2>
+                    <p>From biology to critical real-time systems — a path built on purpose, not by accident.</p>
                 </div>
 
-                <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                         <div style="font-size: 2rem;"></div>
-                    </div>
+                <div class="about-grid">
+                    <div class="reveal">
+                        <p class="about-lead">
+                            My engineering path is driven by a clear goal: <strong style="color:#fff; font-weight:500;">innovating in medical
+                            embedded devices</strong> — insulin pumps in particular.
+                        </p>
+                        <p>
+                            Starting with a strong foundation in <strong style="color:#cdd6e2;">life sciences</strong>, I pivoted to
+                            <strong style="color:#cdd6e2;">mathematics &amp; computer science</strong> to acquire the necessary technical tools.
+                            Today, as an apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a>, I am mastering the final piece:
+                            <strong style="color:#cdd6e2;">critical real-time systems</strong>.
+                        </p>
 
-                    <div style="margin-bottom: 20px;">
-                        <strong>Languages</strong>
-                        <div style="font-size: 0.9rem; margin-top: 10px;">
-                            <div style="display:flex; justify-content:space-between;"><span>🇬🇧 English (C1)</span> <span>Professional</span></div>
-                            <div class="lang-bar"><div class="lang-progress" style="width: 95%;"></div></div>
-                            
-                            <div style="display:flex; justify-content:space-between;"><span>🇪🇸 Spanish (B2)</span> <span>Advanced</span></div>
-                            <div class="lang-bar"><div class="lang-progress" style="width: 70%;"></div></div>
-                            
-                            <div style="font-size: 0.85rem; color: #64748b; margin-top:5px;">
-                                + Notions in 🇸🇦 Arabic & 🇷🇺 Russian
+                        <div class="timeline">
+                            <span class="label" style="margin-bottom:1.6rem;">Education path</span>
+
+                            <div class="timeline-item">
+                                <span class="yr">2025 — 2026</span>
+                                <strong>1st Year FISA Engineering Program (Digital Sciences)</strong>
+                                <em>ENSEEIHT, Toulouse</em>
+                                <small>
+                                    Major in Computer Science &amp; Networks (work-study program). Engineering cycle via apprenticeship —
+                                    <a href="#kyber-focus" class="kyber-link">apprenticeship at Kyber</a>.
+                                </small>
+                            </div>
+
+                            <div class="timeline-item">
+                                <span class="yr">2024 — 2025</span>
+                                <strong>Master 1 SECIL (Embedded Systems)</strong>
+                                <em>Université Toulouse III — Paul Sabatier / ENSEEIHT</em>
+                                <small>Embedded &amp; connected systems: infrastructure and software.</small>
+                            </div>
+
+                            <div class="timeline-item">
+                                <span class="yr">2022 — 2024</span>
+                                <strong>Double Licence Mathematics &amp; Computer Science</strong>
+                                <em>Aix-Marseille Université</em>
+                                <small>Intensive dual degree — strengthening logic and algorithms.</small>
+                            </div>
+
+                            <div class="timeline-item">
+                                <span class="yr">2020 — 2022</span>
+                                <strong>CPGE BCPST</strong>
+                                <em>Lycée Thiers, Marseille</em>
+                                <small>Biology, chemistry, physics and earth sciences. High-level training in life sciences &amp; physics.</small>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <strong>Passions & Interests</strong>
-                        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Engineering requires a curious mind.</p>
-                        <div>
-                            <span class="interest-tag">🏊‍♀️ Swimming</span>
-                            <span class="interest-tag">🚀 Rocket Launches</span>
-                            <span class="interest-tag">✈️ Aviation (FlightRadar)</span>
-                            <span class="interest-tag">🎭 Theatre & Cinema</span>
-                            <span class="interest-tag">🧳 Travel</span>
+                    <div class="side-stack">
+                        <div class="card ch reveal" style="--d:80ms">
+                            <span class="label">Languages</span>
+                            <div class="lang-row"><span>🇬🇧 English (C1)</span><span>Professional</span></div>
+                            <div class="lang-bar"><i class="lang-progress" style="--w:95%"></i></div>
+
+                            <div class="lang-row"><span>🇪🇸 Spanish (B2)</span><span>Advanced</span></div>
+                            <div class="lang-bar"><i class="lang-progress" style="--w:70%"></i></div>
+
+                            <p style="font-size:0.82rem; margin:0;">+ Notions in 🇸🇦 Arabic &amp; 🇷🇺 Russian</p>
+                        </div>
+
+                        <div class="card ch reveal" style="--d:140ms">
+                            <span class="label">Passions &amp; interests</span>
+                            <p style="font-size:0.85rem; margin-bottom:14px;">Engineering requires a curious mind.</p>
+                            <div>
+                                <span class="interest-tag">🏊‍♀️ Swimming</span>
+                                <span class="interest-tag">🚀 Rocket launches</span>
+                                <span class="interest-tag">✈️ Aviation</span>
+                                <span class="interest-tag">🎭 Theatre &amp; cinema</span>
+                                <span class="interest-tag">🧳 Travel</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -435,274 +1037,454 @@
         </section>
 
         <section id="skills">
-            <h2>Technical Skills</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Languages</h3>
-                    <span class="tag">Python</span>
-                    <span class="tag">Java</span>
-                    <span class="tag">C / C++</span>
-                    <span class="tag">Rust</span> 
-                    <span class="tag">OCaml</span>
-                    <span class="tag">VHDL</span>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">Technical skills</span>
+                    <h2>The toolbox</h2>
+                    <p>From bare-metal to browser — languages and infrastructure I build with.</p>
                 </div>
-                <div class="card">
-                    <h3>Tools & Infrastructure</h3>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Git</span>
-                    <span class="tag">ROS</span>
-                    <span class="tag">Linux (Embedded)</span>
-                    <span class="tag">LaTeX</span>
-                    <span class="tag">WebAssembly (Wasm)</span> 
+
+                <div class="bento">
+                    <div class="card ch reveal">
+                        <span class="label">Languages</span>
+                        <h3>Systems &amp; algorithms</h3>
+                        <div style="margin-top:14px;">
+                            <span class="tag">Rust</span><span class="tag">C / C++</span><span class="tag">Python</span>
+                            <span class="tag">Java</span><span class="tag">OCaml</span><span class="tag">VHDL</span>
+                        </div>
+                    </div>
+                    <div class="card ch-tr reveal" style="--d:80ms">
+                        <span class="label">Tools &amp; infrastructure</span>
+                        <h3>Build &amp; deploy</h3>
+                        <div style="margin-top:14px;">
+                            <span class="tag">Docker</span><span class="tag">Git</span><span class="tag">ROS</span>
+                            <span class="tag">Linux (Embedded)</span><span class="tag">WebAssembly</span><span class="tag">LaTeX</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="experience">
-            <h2>Professional Experience</h2>
-            
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>Apprentice Software Engineer | <a href="#kyber-focus" class="kyber-link">Kyber</a></h3>
-                <p><strong>Toulouse, France | 2024 - Present</strong></p>
-                <p>Contributing to the "Next Gen Infrastructure for Real Time Interactions".</p>
-                <ul>
-                    <li>Developing the Kyber SDK to enable remote control with sub-20ms latency.</li>
-                    <li>Implementing network protocols based on QUIC and WebTransport for high-performance streaming.</li>
-                    <li>Refactoring and optimizing the Rust/Wasm codebase for seamless web browser integration.</li>
-                </ul>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--accent-color);">
-                    <strong> Professional Growth:</strong> Adapting to a fast-paced R&D environment, learning Rust from scratch, and collaborating on patents.
-                </p>
-            </div>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">Professional experience</span>
+                    <h2>Where I have worked</h2>
+                </div>
 
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>Research Intern (Optimization of XDD) | IRIT</h3>
-                <p><strong>Toulouse, France | May - July 2025 (Forecasted)</strong></p>
-                <p>Supervised by Hugues Cassé. Focus on embedded systems optimization and worst-case execution time analysis.</p>
-            </div>
+                <div class="grid">
+                    <div class="card ch featured reveal" style="grid-column: 1 / -1;">
+                        <div style="display:flex; align-items:center; gap:18px; margin-bottom:14px;">
+                            <a href="https://kyber.tech" target="_blank" rel="noopener" aria-label="Kyber — kyber.tech">
+                                <img src="kyber-icon.png" alt="Kyber" class="kyber-icon" style="width:54px;" onerror="this.style.display='none'">
+                            </a>
+                            <div>
+                                <span class="label" style="margin-bottom:4px;">2024 — Present · Toulouse, France</span>
+                                <h3 style="margin:0;">Apprentice Software Engineer — <a href="#kyber-focus" class="kyber-link">Kyber</a></h3>
+                            </div>
+                        </div>
+                        <p>Contributing to the “Next Gen Infrastructure for Real Time Interactions”.</p>
+                        <ul>
+                            <li>Developing the Kyber SDK to enable remote control with sub-20&nbsp;ms latency.</li>
+                            <li>Implementing network protocols based on QUIC and WebTransport for high-performance streaming.</li>
+                            <li>Refactoring and optimizing the Rust/Wasm codebase for seamless web browser integration.</li>
+                        </ul>
+                        <p class="note">
+                            <strong style="color:#fff;">Professional growth:</strong> adapting to a fast-paced R&amp;D environment,
+                            learning Rust from scratch, and collaborating on patents.
+                        </p>
+                    </div>
 
-            <div class="card">
-                <h3>Research Intern (Probabilistic Automata) | LIS (CNRS)</h3>
-                <p><strong>Marseille, France | June - July 2023</strong></p>
-                <p>Validation of double license. Supervised by Benjamin Monmege.</p>
-                <p><em>Reflection:</em> Gained deep understanding of state reduction algorithms and academic research methodology.</p>
+                    <div class="card ch reveal" style="--d:80ms">
+                        <span class="label">May — July 2025 · Toulouse</span>
+                        <h3>Research Intern — IRIT</h3>
+                        <p class="meta">Optimization of XDD</p>
+                        <p>Supervised by Hugues Cassé. Focus on embedded systems optimization and worst-case execution time analysis.</p>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:140ms">
+                        <span class="label">June — July 2023 · Marseille</span>
+                        <h3>Research Intern — LIS (CNRS)</h3>
+                        <p class="meta">Probabilistic automata</p>
+                        <p>Validation of the double licence. Supervised by Benjamin Monmege.</p>
+                        <p class="note">Gained deep understanding of state reduction algorithms and academic research methodology.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="kyber-focus" class="kyber-section">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap;">
-                <h2>Current Role</h2>
-            </div>
-
-            <img src="logo.png" alt="Kyber Logo" class="kyber-logo-img" onerror="this.style.display='none'">
-            
-            <p style="font-size: 1.2rem; color: var(--accent-color); margin-bottom: 1rem; text-align: center;">
-                Building the "Next Gen Infrastructure for Real Time Interactions".
-            </p>
-
-            <div style="text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                <p style="margin-bottom: 1.5rem;">
-                    Led by <strong>Jean-Baptiste Kempf</strong> (CEO of Kyber & President of VideoLAN), this is his new ambitious venture to solve the latency problem once and for all.
-                </p>
-                
-                <a href="https://www.youtube.com/watch?v=0Vtg245ZDbU" target="_blank" class="btn" style="background-color: #FF0000; color: white; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;">
-                    <span style="font-size: 1.2em;">&#9658;</span> Watch Project Explanation (Video)
-                </a>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 8px;">
-                    <em>Deep dive into the tech with JB Kempf.</em>
-                </p>
-            </div>
-            
-            <div class="grid">
-                <div class="card">
-                    <h3>🚀 The Vision</h3>
-                    <p>We are creating a world where life-saving robot surgeries, drones, or immersive agents can be remotely operated with <strong>no delay</strong>. Our goal is to enable "Near-Human Latency" (< 50ms), allowing machines to feel like they are at your fingertips.</p>
+        <section id="kyber-focus">
+            <div class="container">
+                <div class="section-head reveal">
+                    <a href="https://kyber.tech" target="_blank" rel="noopener" aria-label="Kyber — kyber.tech">
+                        <img src="kyber-logo.png" alt="Kyber" class="kyber-logo-img" onerror="this.style.display='none'">
+                    </a>
+                    <h2>Next gen infrastructure for real time interactions</h2>
+                    <p>
+                        Led by <strong style="color:var(--strong); font-weight:500;">Jean-Baptiste Kempf</strong> (CEO of Kyber &amp; President of
+                        VideoLAN), Kyber is his new venture to solve the latency problem once and for all.
+                    </p>
+                    <p style="margin-top:14px;">
+                        <a href="https://kyber.tech" target="_blank" rel="noopener" class="link-arrow">kyber.tech</a>
+                    </p>
                 </div>
-                
-                <div class="card">
-                    <h3>⚡ Performance: 8ms</h3>
-                    <p>When controlling a machine, low latency is more important than video quality. Kyber delivers <strong>glass-to-glass latency down to 8ms</strong>. This enables true "Machine to Machine" interactions and AI agents controlling remote hardware.</p>
-                </div>
-                
-                <div class="card">
-                    <h3>🛠️ Technology Stack</h3>
-                    <p>A patented network protocol based on <strong>QUIC</strong> and <strong>WebTransport</strong>. The core is built upon <strong>VLC</strong> and <strong>FFmpeg</strong> open-source tech, utilizing <strong>Rust</strong> and <strong>WebAssembly (Wasm)</strong> for high-performance browser integration.</p>
+
+                <div class="kyber-bento reveal">
+                    <div class="card tile-latency ch-bl">
+                        <div class="caret down"></div>
+                        <div class="orb">
+                            <div class="val">8<span class="unit">MS</span></div>
+                        </div>
+                        <div class="caret up"></div>
+                        <div class="tile-caption ch-bl">
+                            <span class="label">Lowest latency</span>
+                            <h3>Below perception</h3>
+                            <p>8–10&nbsp;ms glass-to-glass. Below the human hand-eye loop.</p>
+                        </div>
+                    </div>
+
+                    <div class="card ch-tr">
+                        <span class="label">The vision</span>
+                        <h3>No delay, anywhere</h3>
+                        <p>
+                            A world where life-saving robot surgeries, drones or immersive agents can be remotely operated with
+                            <strong style="color:#cdd6e2;">no delay</strong>. The goal: “near-human latency” (&lt;&nbsp;50&nbsp;ms), so
+                            machines feel like they are at your fingertips.
+                        </p>
+                    </div>
+
+                    <div class="card ch">
+                        <span class="label">Technology stack</span>
+                        <h3>Protocol-level</h3>
+                        <p>
+                            A patented network protocol built on <strong style="color:#cdd6e2;">QUIC</strong> and
+                            <strong style="color:#cdd6e2;">WebTransport</strong>. The core builds on VLC and FFmpeg open-source technology,
+                            using <strong style="color:#cdd6e2;">Rust</strong> and <strong style="color:#cdd6e2;">WebAssembly</strong> for
+                            high-performance browser integration.
+                        </p>
+                    </div>
+
+                    <div class="card ch-tr" style="grid-column: 1 / -1;">
+                        <span class="label">Deep dive</span>
+                        <h3>Watch the project explained</h3>
+                        <p>The technology, told by JB Kempf himself.</p>
+                        <a href="https://www.youtube.com/watch?v=0Vtg245ZDbU" target="_blank" rel="noopener" class="btn btn-blue" style="margin-top:10px;">
+                            ▶ Watch the video
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>Academic & Personal Projects</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>MCP Server Integration with LLM</h3>
-                    <span class="tag">Python</span><span class="tag">AI</span>
-                    <p><strong>Context:</strong> Enabling local LLM interaction via Model Context Protocol.</p>
-                    <p><strong>Outcome:</strong> Successfully integrated a server allowing AI models to interact with local file systems.</p>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">Academic &amp; personal projects</span>
+                    <h2>Things I have built</h2>
                 </div>
 
-                <div class="card">
-                    <h3>Autonomous Sailboat Model</h3>
-                    <span class="tag">Embedded</span><span class="tag">Hardware</span>
-                    <p><strong>Role:</strong> Designed the control system logic.</p>
-                    <p><strong>Outcome:</strong> Functional prototype capable of basic navigation and wind adjustment.</p>
-                    <a href="WhatsApp Video 2025-11-25 at 18.53.29.mp4" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
-                        <span style="font-size: 1.1em; vertical-align: middle;">&#9658;</span> Watch Demo Video
-                    </a>
+                <div class="grid">
+                    <div class="card ch reveal">
+                        <span class="label">Python · AI</span>
+                        <h3>MCP Server integration with LLM</h3>
+                        <p><strong style="color:#cdd6e2;">Context:</strong> enabling local LLM interaction via the Model Context Protocol.</p>
+                        <p><strong style="color:#cdd6e2;">Outcome:</strong> integrated a server allowing AI models to interact with local file systems.</p>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:80ms">
+                        <span class="label">Embedded · Hardware</span>
+                        <h3>Autonomous sailboat model</h3>
+                        <p><strong style="color:#cdd6e2;">Role:</strong> designed the control system logic.</p>
+                        <p><strong style="color:#cdd6e2;">Outcome:</strong> functional prototype capable of basic navigation and wind adjustment.</p>
+                        <a href="Voilier.mp4" target="_blank" rel="noopener" class="link-arrow">Watch demo video</a>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:140ms">
+                        <span class="label">Java · Algorithms</span>
+                        <h3>SAT-Solver implementation</h3>
+                        <p>Implementation of the DPLL algorithm for boolean satisfiability problems.</p>
+                        <p><strong style="color:#cdd6e2;">Key learning:</strong> optimization of recursive algorithms and data structures in Java.</p>
+                        <a href="https://github.com/AyoubBarich/DPLL_SAT_SOLVER" target="_blank" rel="noopener" class="link-arrow">View code on GitHub</a>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:200ms">
+                        <span class="label">Writing · Research</span>
+                        <h3>Scientific article: molecular logic gates</h3>
+                        <p>Vulgarization of a scientific article on automata made of molecular logic gates. Published on EasyChair.</p>
+                        <a href="Article_DRIM_2022__Copy_.pdf" target="_blank" rel="noopener" class="link-arrow">Read the article (PDF)</a>
+                    </div>
                 </div>
 
-                <div class="card">
-                    <h3>SAT-SOLVER Implementation</h3>
-                    <span class="tag">Java</span><span class="tag">Algorithm</span>
-                    <p>Implementation of the DPLL algorithm for boolean satisfiability problems.</p>
-                    <p><strong>Key Learning:</strong> Optimization of recursive algorithms and data structures in Java.</p>
-                    
-                    <a href="https://github.com/AyoubBarich/DPLL_SAT_SOLVER" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
-                        <span style="font-size: 1.1em; vertical-align: middle;">&#9881;</span> View Code on GitHub
-                    </a>
+                <div class="card ch-tr reveal" style="margin-top:18px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px;">
+                    <div>
+                        <h3 style="margin-bottom:4px;">Want to see more?</h3>
+                        <p style="margin:0;">All my other projects live on GitHub and GitLab.</p>
+                    </div>
+                    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+                        <a href="https://github.com/camved" target="_blank" rel="noopener" class="btn btn-ghost">GitHub · @camved</a>
+                        <a href="https://gitlab.com/camved" target="_blank" rel="noopener" class="btn btn-ghost">GitLab · @camved</a>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Scientific Article: Molecular Logic Gates</h3>
-                    <span class="tag">Writing</span><span class="tag">Research</span>
-                    <p>Vulgarization of a scientific article on automata made of molecular logic gates. Published on EasyChair.</p>
-                    
-                    <a href="Article_DRIM_2022__Copy_.pdf" target="_blank" style="display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 600;">
-                        <span style="font-size: 1.1em; vertical-align: middle;">&#128196;</span> Read Article (PDF)
-                    </a>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px; background: #f8fafc; padding: 20px; border-radius: 8px;">
-                <p style="margin-bottom: 10px; font-weight: 500;">Want to see more?</p>
-                <a href="https://github.com/camved" target="_blank" class="btn" style="background-color: #24292e;">
-                    <span style="font-size: 1.2em; vertical-align: middle; margin-right: 5px;">📂</span> Link to my other projects on GitHub
-                </a>
             </div>
         </section>
 
         <section id="career-project">
-            <h2>Career Project & Professional Network</h2>
-            
-            <!-- <div class="video-placeholder">
-                <video controls width="100%" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-                    <source src="elevated.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div> -->
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">Career project</span>
+                    <h2>Past, present, future</h2>
+                </div>
 
-            <div class="grid" style="margin-top: 2rem;">
-                <div class="card">
-                    <h3>My Past</h3>
-                    <p>Building a strong mathematical and algorithmic foundation through a Double License in Math & CS (Aix-Marseille) and CPGE BCPST. Developed a passion for logical gates and automata theory.</p>
+                <div class="bento">
+                    <div class="card ch reveal">
+                        <span class="label">My past</span>
+                        <h3>Foundations</h3>
+                        <p>
+                            Building a strong mathematical and algorithmic foundation through a double licence in mathematics &amp; computer
+                            science (Aix-Marseille) and CPGE BCPST. Developed a passion for logic gates and automata theory.
+                        </p>
+                    </div>
+                    <div class="card ch reveal" style="--d:80ms">
+                        <span class="label">My present</span>
+                        <h3>Specialisation</h3>
+                        <p>
+                            Specializing in <strong style="color:#cdd6e2;">networks and telecommunications</strong> at ENSEEIHT to master sensor
+                            connectivity for medical devices. Simultaneously applying theory to real-time, low-latency challenges as an
+                            apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a>, using Rust and QUIC.
+                        </p>
+                    </div>
+                    <div class="card ch reveal" style="--d:140ms">
+                        <span class="label">My future</span>
+                        <h3>The goal</h3>
+                        <p>
+                            Becoming an expert in <strong style="color:#cdd6e2;">critical embedded systems</strong> and
+                            <strong style="color:#cdd6e2;">connected sensors</strong> — designing devices that significantly improve the daily
+                            lives of patients.
+                        </p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>My Present</h3>
-                    <p>Specializing in <strong>Networks and Telecommunications</strong> at ENSEEIHT to master sensor connectivity for medical devices (like insulin pumps). Simultaneously applying theory to real-time, low-latency challenges as an Apprentice at <a href="#kyber-focus" class="kyber-link">Kyber</a> using Rust and QUIC.</p>
-                </div>
-                <div class="card">
-                    <h3>My Future</h3>
-                    <p>Aspiring to become an expert in <strong>critical embedded systems</strong> and <strong>connected sensors</strong>. My goal is to contribute to the "Next Gen Infrastructure for Real Time Interactions" and design devices that significantly improve the daily lives of patients.</p>
-                </div>
-            </div>
 
-            <h3 style="margin-top: 3rem;">Inspiration & Network</h3>
-            <p><strong>Professional Network:</strong> Active member of the ENSEEIHT Alumni Association and regular attendee of Toulouse Embedded Systems Meetups.</p>
-            
-            <div class="grid" style="margin-top: 1.5rem;">
-                <div class="card profile-card">
-                    <img src="jb.png" alt="Jean-Baptiste Kempf" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
-                    <h4>Profile 1: Jean-Baptiste Kempf</h4>
-                    <p><strong>Roles:</strong> CTO of Scaleway, President of VideoLAN (VLC) and Kyber</p>
-                    <p style="text-align: left;"><strong>Inspiration:</strong> Massive Open Source Impact: Leading the VideoLAN/VLC project, one of the world’s most successful open-source media players, demonstrating leadership in developing globally adopted, non-proprietary software.</p>
+                <div class="section-head reveal" style="margin:70px 0 30px;">
+                    <h2 style="font-size:clamp(1.6rem,3vw,2.1rem);">Inspiration &amp; Network</h2>
+                    <p><strong style="color:var(--strong); font-weight:500;">Professional Network:</strong> Active member of the ENSEEIHT Alumni Association and regular attendee of Toulouse Embedded Systems Meetups.</p>
                 </div>
-                <div class="card profile-card">
-                    <img src="gilles.png" alt="Giles Lepinard" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
-                    <h4>Profile 2: Giles Lepinard</h4>
-                    <p><strong>Roles:</strong> Software and Systems Project Lead at Thales, CEO of Virevoile</p>
-                    <p style="text-align: left;"><strong>Inspiration:</strong> His structural leadership and organizational rigor are paramount, showing that detailed framework planning is crucial for the resilience and successful advancement of complex projects. Furthermore, the creation of Virevoile—an Open Source project linking his passion for sailing with code and embedded engineering—is a strong model for transforming personal drive into tangible technical impact.</p>
-                </div>
-                <div class="card">
-                    <img src="redhat.png" alt="redhat" class="profile-img" onerror="this.src='https://via.placeholder.com/100'">
-                    <h4>Profile 3: Red Team Insight</h4>
-                    <p>Recent exchange with a professional <strong>Red Team Operator</strong> (Ethical Hacking). I was captivated by the versatility of the role and the "perpetual enigma" involved in uncovering vulnerabilities.</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-color);">
-                        <strong>Key Takeaway:</strong> This interaction highlighted the powerful link between mathematical logic and cybersecurity, reinforcing my drive to build resilient, safety-critical systems.
-                    </p>
+
+                <div class="grid">
+                    <div class="card ch profile-card reveal">
+                        <img src="jb.png" alt="Jean-Baptiste Kempf" class="profile-img" onerror="this.style.display='none'">
+                        <span class="label">Profile 01</span>
+                        <h3>Jean-Baptiste Kempf</h3>
+                        <p class="meta">CTO of Scaleway · President of VideoLAN (VLC) &amp; Kyber</p>
+                        <p>
+                            Massive open source impact: leading the VideoLAN/VLC project, one of the world's most successful open-source media
+                            players — leadership in globally adopted, non-proprietary software.
+                        </p>
+                    </div>
+
+                    <div class="card ch profile-card reveal" style="--d:80ms">
+                        <img src="gilles.png" alt="Giles Lepinard" class="profile-img" onerror="this.style.display='none'">
+                        <span class="label">Profile 02</span>
+                        <h3>Giles Lepinard</h3>
+                        <p class="meta">Software &amp; Systems Project Lead at Thales · CEO of Virevoile</p>
+                        <p>
+                            Structural leadership and organizational rigor: detailed framework planning is crucial for the resilience of complex
+                            projects. Virevoile — an open source project linking his passion for sailing with embedded engineering — is a strong
+                            model for turning personal drive into technical impact.
+                        </p>
+                    </div>
+
+                    <div class="card ch profile-card reveal" style="--d:140ms">
+                        <img src="redhat.png" alt="Red team" class="profile-img" onerror="this.style.display='none'">
+                        <span class="label">Profile 03</span>
+                        <h3>Red team insight</h3>
+                        <p class="meta">Ethical hacking</p>
+                        <p>
+                            Recent exchange with a professional red team operator. I was captivated by the versatility of the role and the
+                            “perpetual enigma” involved in uncovering vulnerabilities.
+                        </p>
+                        <p class="note">
+                            <strong style="color:#fff;">Key takeaway:</strong> the powerful link between mathematical logic and cybersecurity
+                            reinforces my drive to build resilient, safety-critical systems.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="mobility">
-            <h2>International Mobility Projects</h2>
-
-            <p style="font-size: 0.9rem; margin-top: -15px;">
-                <a href="reunion-14-11-2025.txt" target="_blank" style="color: var(--secondary-accent); font-weight: 600;">
-                    Link to proof
-                </a>
-            </p>
-
-            <p>Targeting universities with strong Embedded Systems, Robotics, or Real-Time OS programs.</p>
-            
-            <div class="grid">
-                <div class="card">
-                    <h3>Option 1: TU Munich (TUM)</h3>
-                    <p><strong>Country:</strong> Germany 🇩🇪</p>
-                    <p><strong>Program:</strong> Electronics and Automation (Code 0714).</p>
-                    <p><strong>Why:</strong> Elite technical university rivaling ETH. Located in the industrial hub of embedded systems (Siemens, BMW), ideal for critical systems & robotics.</p>
-                    <p><strong>Status:</strong>  <span style="color: #22c55e;">🟢 Course compatibility checked</span></p>
-                </div>
-
-                <div class="card">
-                    <h3>Option 2: KTH Royal Institute</h3>
-                    <p><strong>Country:</strong> Sweden 🇸🇪</p>
-                    <p><strong>Program:</strong> MSc in Embedded Systems.</p>
-                    <p><strong>Why:</strong> Specific focus on dependable systems and formal methods. Strong ties with industrial giants (Scania, Ericsson).</p>
-                    <p><strong>Status:</strong> <span style="color: #eab308;">🟡 Analyzing prerequisites (GRE/GPA)</span></p>
-                </div>
-
-                <div class="card">
-                    <h3>Option 3: International Internship</h3>
-                    <p><strong>Location:</strong> Worldwide 🌍 (Flexible)</p>
-                    <p>Actively seeking a technical internship of <strong>at least 9 weeks</strong> to validate my international mobility. My goal is to contribute to the <strong>Medical & HealthTech</strong> sector by applying my expertise in <strong>Embedded Systems</strong> and <strong>Safety-Critical Engineering</strong>.</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem; color: var(--accent-color);">
-                        👉 <em> <a href="CV_VEDANI_EN.pdf" style="color:var(--accent-color); font-weight:600; text-decoration:none;">Hiring? My CV is available here.</a></em>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">International mobility</span>
+                    <h2>Going abroad</h2>
+                    <p>
+                        Targeting universities with strong embedded systems, robotics or real-time OS programs.
+                        <a href="Reu_Hurault.txt" target="_blank" rel="noopener" class="kyber-link">Link to proof</a>.
                     </p>
-                    <p><strong>Status:</strong> <span style="color: #22c55e;">🟢 Open to Opportunities</span></p>
+                </div>
+
+                <div class="grid">
+                    <div class="card ch reveal">
+                        <span class="label">Option 01 · Germany 🇩🇪</span>
+                        <h3>TU Munich (TUM)</h3>
+                        <p class="meta">Electronics and automation (code 0714)</p>
+                        <p>Elite technical university rivaling ETH. Located in the industrial hub of embedded systems (Siemens, BMW) — ideal for critical systems &amp; robotics.</p>
+                        <span class="status ok">Course compatibility checked</span>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:80ms">
+                        <span class="label">Option 02 · Sweden 🇸🇪</span>
+                        <h3>KTH Royal Institute</h3>
+                        <p class="meta">MSc in embedded systems</p>
+                        <p>Specific focus on dependable systems and formal methods. Strong ties with industrial giants (Scania, Ericsson).</p>
+                        <span class="status pending">Analyzing prerequisites (GRE/GPA)</span>
+                    </div>
+
+                    <div class="card ch reveal" style="--d:140ms">
+                        <span class="label">Option 03 · Worldwide 🌍</span>
+                        <h3>International internship</h3>
+                        <p>
+                            Actively seeking a technical internship of <strong style="color:#cdd6e2;">at least 9 weeks</strong> to validate my
+                            international mobility, contributing to the medical &amp; healthtech sector through embedded systems and
+                            safety-critical engineering.
+                        </p>
+                        <a href="CV_VEDANI_EN.pdf" target="_blank" rel="noopener" class="link-arrow">Hiring? My CV is here</a>
+                        <br>
+                        <span class="status ok">Open to opportunities</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="csr">
-            <h2>CSR Engagement</h2>
-            <div class="card">
-                <h3>Why CSR matters in Engineering?</h3>
-                <p>
-                    Engineering is not just about solving technical problems; it is about building a future that is inclusive and sustainable. In the medical field especially, ensuring algorithms are open, secure, and accessible is a matter of ethics and social justice.
-                </p>
-                
-                <h3 style="margin-top: 1.5rem;">My Commitments</h3>
-                <ul style="margin-top: 1rem;">
-                    <li><strong>Tutoring at Parkours:</strong> Providing academic support for high schoolers to promote equal education opportunities.</li>
-                    <li>
-                        <a href="https://www.1jeune1mentor.fr/pourquoi-devenir-mentor?utm_source=google&utm_medium=cpc&id=18506938490&utm_term=b%C3%A9n%C3%A9volat%20soutien%20scolaire&utm_content=142008978676&utm_campaign=AfC_1J1M_S_GoogleAdsPayant_Mentor_B%C3%A9n%C3%A9volat&gad_source=1&gad_campaignid=18506938490&gclid=Cj0KCQiAosrJBhD0ARIsAHebCNrqq5EdFDLqmtZQlZn3QRMkppL1i3v08DUzErTWKFCRc6SQknHG8PIaAoiIEALw_wcB" target="_blank" style="color: var(--accent-color); text-decoration: none;">
-                            <strong>Mentorship:</strong>
-                        </a> 
-                        [Future Goal] Helping younger students discover embedded systems.
-                    </li>
-                    <li><strong>Open Source Health:</strong> As a diabetic person, one of my objectives is to make an open-source solution to have algorithms for insulin pumps, making this accessible to everyone.</li>
-                </ul>
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="label">CSR engagement</span>
+                    <h2>Engineering with a conscience</h2>
+                </div>
+
+                <div class="bento">
+                    <div class="card ch reveal">
+                        <span class="label">Why it matters</span>
+                        <h3>Beyond the technical problem</h3>
+                        <p>
+                            Engineering is not just about solving technical problems; it is about building a future that is inclusive and
+                            sustainable. In the medical field especially, ensuring algorithms are open, secure and accessible is a matter of
+                            ethics and social justice.
+                        </p>
+                    </div>
+
+                    <div class="card ch-tr reveal" style="--d:80ms">
+                        <span class="label">My commitments</span>
+                        <h3>What I actually do</h3>
+                        <ul style="margin-top:14px;">
+                            <li><strong style="color:#cdd6e2;">Tutoring at Parkours:</strong> academic support for high schoolers, to promote equal education opportunities.</li>
+                            <li>
+                                <strong style="color:#cdd6e2;"><a href="https://www.1jeune1mentor.fr/pourquoi-devenir-mentor" target="_blank" rel="noopener" class="kyber-link">Mentorship</a>:</strong>
+                                [future goal] helping younger students discover embedded systems.
+                            </li>
+                            <li><strong style="color:#cdd6e2;">Open source health:</strong> as a diabetic person, one of my objectives is to build an open-source algorithm solution for insulin pumps, making it accessible to everyone.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <footer id="contact">
-            <h2>Contact</h2>
-            <p><strong>Camille Vedani</strong></p>
-            <p><a href="mailto:camille.vedani@outlook.fr" style="color: #cbd5e1;">camille.vedani@outlook.fr</a></p>
-            <p>Toulouse, France</p>
-            <br>
-            <p><small>&copy; 2025 Camille Vedani - Lifelong Digital Portfolio</small></p>
-        </footer>
+    </main>
 
-    </div>
+    <footer id="contact">
+        <div class="container">
+            <h2 class="reveal">Contact</h2>
+
+            <p class="reveal" style="--d:60ms; font-size:1.15rem; color:var(--strong); margin:0 0 6px;">Camille Vedani</p>
+
+            <p class="reveal" style="--d:100ms; margin:0 0 6px;">
+                <a href="mailto:camille.vedani@outlook.fr" class="mail-link">camille.vedani@outlook.fr</a>
+            </p>
+
+            <p class="reveal" style="--d:140ms; margin:0;">Toulouse, France</p>
+
+            <div class="hero-actions reveal" style="--d:200ms; margin:36px 0 0;">
+                <a href="https://www.linkedin.com/in/camille-vedani-280967270" class="btn" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/camved" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://gitlab.com/camved" class="btn btn-ghost" target="_blank" rel="noopener">GitLab</a>
+                <a href="CV_VEDANI_EN.pdf" class="btn btn-ghost" target="_blank" rel="noopener">CV (EN)</a>
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2025 Camille Vedani — Lifelong Digital Portfolio</span>
+                <span>Toulouse, France</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var nav = document.getElementById('nav');
+            var burger = document.getElementById('burger');
+            var navLinks = document.getElementById('navLinks');
+            var progress = document.getElementById('progress');
+
+            /* --- Mobile menu --- */
+            burger.addEventListener('click', function () {
+                var open = navLinks.classList.toggle('open');
+                burger.setAttribute('aria-expanded', String(open));
+                burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            });
+
+            navLinks.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('open');
+                    burger.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            /* --- Nav border + scroll progress --- */
+            function onScroll() {
+                nav.classList.toggle('stuck', window.scrollY > 10);
+                var h = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            /* --- Reveal on scroll --- */
+            var revealables = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window) {
+                var revealer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in');
+                            revealer.unobserve(entry.target);
+                        }
+                    });
+                }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+                revealables.forEach(function (el) { revealer.observe(el); });
+            } else {
+                revealables.forEach(function (el) { el.classList.add('in'); });
+            }
+
+            /* --- Active section in nav --- */
+            var links = Array.prototype.slice.call(navLinks.querySelectorAll('a'));
+            var sections = links
+                .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+                .filter(Boolean);
+
+            if ('IntersectionObserver' in window && sections.length) {
+                var spy = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        links.forEach(function (a) {
+                            a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + entry.target.id));
+                        });
+                    });
+                }, { rootMargin: '-45% 0px -50% 0px' });
+
+                sections.forEach(function (s) { spy.observe(s); });
+            }
+        })();
+    </script>
 </body>
 </html>
