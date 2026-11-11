@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+% ---------- Anglo-Saxon business letter ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2.4cm,right=2.4cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{1F4E79}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.75em}
+\pagestyle{empty}
+
+% ---------- Sender (edit here) ----------
+\newcommand{\myname}{Camille Vedani}
+\newcommand{\myaddress}{Toulouse, France}
+\newcommand{\myphone}{+33 6 29 27 59 31}
+\newcommand{\myemail}{camille.vedani@outlook.fr}
+
+\begin{document}
+
+% ---------- Letterhead ----------
+{\LARGE\bfseries\color{accent}\myname}\par
+\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}\par
+\vspace{-0.6em}{\small \myaddress\enspace$\cdot$\enspace \myphone\enspace$\cdot$\enspace
+\href{mailto:camille.vedani@outlook.fr}{\myemail}\\
+\href{https://www.linkedin.com/in/camille-vedani-280967270}{linkedin.com/in/camille-vedani-280967270}\enspace$\cdot$\enspace
+\href{https://github.com/camved}{github.com/camved}}\par
+\vspace{1em}
+
+\today
+
+Malin Vestin, International Coordinator\\
+School of Electrical Engineering and Computer Science (EECS)\\
+KTH Royal Institute of Technology\\
+SE-100 44 Stockholm, Sweden
+
+\textbf{Re: Application for a six-month study period in dependable embedded systems}
+
+Dear Malin Vestin,
+
+% ---------------- ME ----------------
+I am a second-year engineering student at ENSEEIHT (Toulouse INP), in the Computer Science \& Networks
+apprenticeship track (FISA), and an apprentice software engineer at Kyber, a French open-source start-up building
+infrastructure for real-time interactions. At Kyber, I develop an SDK that enables remote control of
+machines with less than 20\,ms of latency: I implement network protocols based on QUIC and WebTransport
+and optimise our Rust/WebAssembly codebase for browser integration. My path is deliberately broad: two
+years of preparatory classes in life sciences (CPGE BCPST), a double bachelor's degree in mathematics and
+computer science at Aix-Marseille University, and a first master's year in embedded and connected systems
+at Toulouse III. Two research internships, on state reduction for probabilistic automata at LIS (CNRS) and
+on execution decision diagrams for worst-case execution time analysis at IRIT, taught me the rigour of
+academic research. Projects such as a DPLL SAT solver and model checking with Promela gave me a strong
+taste for formal reasoning. All of this serves one goal: designing safe, open medical embedded devices
+such as insulin pumps.
+
+% ---------------- YOU ----------------
+KTH Royal Institute of Technology stands out for its research and teaching in embedded systems with a clear
+focus on dependability and formal methods: exactly the combination I believe medical devices require. Its
+close ties with industrial leaders such as Ericsson and Scania, and its strength in medical technology,
+bring together the three fields I want to connect: networks, critical embedded software and health. The
+Swedish approach to engineering, based on collaboration, autonomy and openness, also strongly matches the
+way I already work at Kyber.
+
+% ---------------- US ----------------
+I would like to spend one semester (six months) at your university, within the exchange agreement currently being established between ENSEEIHT (Toulouse INP) and KTH. I would bring
+my skills in Rust, C/C++, Python and model checking, my experience of real-time networking, and the autonomy I have developed while working fully remotely in an international,
+English-speaking team. In return, this semester would let me deepen my knowledge of dependable systems and formal verification in a world-class academic
+environment while fulfilling the
+international mobility required by my engineering degree. I would be glad to provide any further
+information about my academic record. My CV and portfolio are attached.
+
+Thank you for considering my application. I look forward to hearing from you.
+
+Sincerely,
+
+\vspace{1.8em}
+\myname
+\end{document}

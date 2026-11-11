@@ -1,0 +1,68 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>CV Camille Vedani</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --teal:#1d4851; --text:#2b4e57; --soft:#5f7d83; }
+html, body { width:210mm; height:296mm; background:#fff; overflow:hidden; }
+body { font-family:'Montserrat',sans-serif; font-weight:400; color:var(--text);
+       font-size:9pt; line-height:1.4; position:relative; overflow:hidden;
+       -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.deco { position:absolute; background:var(--teal); z-index:0; }
+.d1 { left:-20mm; top:-30mm; width:78mm; height:110mm; transform:rotate(38deg); border-radius:0 0 0 60mm; }
+.d1b{ left:-14mm; top:-34mm; width:80mm; height:112mm; transform:rotate(38deg); border-radius:0 0 0 60mm;
+      background:transparent; border-left:1.6mm solid #fff; }
+.d2 { right:-10mm; top:-14mm; width:30mm; height:30mm; border-radius:50%; }
+.d3 { right:6mm; top:-6mm; width:16mm; height:16mm; border-radius:50%; background:#3d6670; }
+.d4 { left:-14mm; bottom:-16mm; width:38mm; height:38mm; border-radius:50%; }
+.d5 { left:16mm; bottom:-8mm; width:16mm; height:16mm; border-radius:50%; background:#3d6670; }
+.photo { position:absolute; left:20mm; top:10mm; width:40mm; height:40mm; border-radius:50%;
+         overflow:hidden; border:1.2mm solid #fff; z-index:2; background:#fff; }
+.photo img { width:100%; height:100%; object-fit:cover; }
+.name { position:absolute; left:74mm; right:12mm; top:7mm; text-align:center; z-index:2;
+        font-family:'Archivo Black',sans-serif; color:var(--teal); font-size:24pt; letter-spacing:3.5pt; line-height:1.15; }
+.summary { position:absolute; left:74mm; right:12mm; top:36mm; text-align:center; font-size:8.8pt; z-index:2; }
+.left  { position:absolute; left:0; width:59mm; top:84mm; z-index:2; }
+.right { position:absolute; left:62mm; right:6mm; top:58mm; z-index:2; }
+h2 { background:var(--teal); color:#fff; font-weight:600; font-size:9pt; letter-spacing:3pt;
+     text-align:center; padding:1.6mm 0; margin:0 0 2.6mm; text-transform:uppercase; }
+.left h2 { margin-top:6mm; }
+.left h2:first-child { margin-top:0; }
+.left .blk { padding:0 4mm 0 7mm; }
+.contact div { display:flex; align-items:center; gap:3mm; margin:2.4mm 0; font-size:8.8pt; }
+.ico { width:6mm; height:6mm; border-radius:50%; background:var(--teal); color:#fff; flex:none;
+       display:flex; align-items:center; justify-content:center; font-size:7pt; }
+.left ul { list-style:disc; padding-left:4mm; }
+.left li { margin:1.2mm 0; }
+.right section { margin-bottom:4.4mm; }
+.edu { margin-bottom:2.2mm; padding-left:1mm; }
+.edu .s { text-decoration:underline; font-weight:500; }
+.edu .y { font-weight:600; }
+.edu .now { color:var(--teal); font-weight:600; }
+.xp { margin:0 0 2.4mm; padding-left:3mm; position:relative; }
+.xp::before { content:''; position:absolute; left:0; top:2.1mm; width:1.6mm; height:0.45mm; background:var(--text); }
+.xp .t { font-weight:600; }
+.xp .y { font-weight:600; color:var(--teal); }
+.xp ul { padding-left:4mm; margin-top:0.4mm; }
+.proj { display:flex; gap:4mm; align-items:flex-start; }
+.proj .list { flex:1; }
+.proj .k { text-decoration:underline; font-weight:500; margin-top:1.4mm; }
+.proj ul { padding-left:8mm; }
+.qr { width:22mm; height:22mm; margin-top:3mm; image-rendering:pixelated; }
+</style></head><body>
+<div class="deco d1"></div><div class="deco d2"></div><div class="deco d3"></div><div class="deco d4"></div><div class="deco d5"></div>
+<div class="photo"><img src="cv-photo.png" alt=""></div>
+<div class="name">CAMILLE<br>VEDANI</div>
+<p class="summary">Actuellement en <b>deuxième année de cycle ingénieur à l'ENSEEIHT</b> en alternance (FISA) et apprentie ingénieure logiciel chez Kyber, je souhaite <b>effectuer un semestre d'études (6 mois) à l'étranger</b>. Passionnée par l'électronique et l'embarqué, je souhaite approfondir mes compétences techniques dans un environnement international.</p>
+<div class="left">
+  <h2>Contact</h2>
+  <div class="blk contact"><div><span class="ico">&#9742;</span>06 29 27 59 31</div><div><span class="ico">&#9993;</span>camille.vedani@outlook.fr</div></div>
+  <h2>Compétences</h2><div class="blk"><ul><li>Langages de programmation :<br>Rust, Python, Java, C, C++, OCaml, VHDL, Promela, CUDA, JavaScript, WebAssembly</li><li>Outils : ROS, Docker, Git, Linux embarqué, LaTeX</li><li>Grande capacité de travail</li><li>Esprit d'équipe</li><li>Curieuse</li></ul></div>
+  <h2>Langues</h2><div class="blk"><ul><li>Anglais C1 / Espagnol B2</li><li>Notions d'arabe littéraire et de russe</li></ul></div>
+  <h2>Loisirs et intérêts</h2><div class="blk"><ul><li>Natation</li><li>Suivre des avions sur FlightRadar</li><li>Voyager</li></ul></div>
+</div>
+<div class="right">
+  <section><h2>Études</h2><div class='edu'><div class='s'>ENSEEIHT – Toulouse INP (31) :</div><div class='y'>2025 – aujourd'hui :</div><div>Cycle ingénieur Sciences du Numérique – Informatique et Réseaux, en alternance (FISA). <span class='now'>Actuellement en 2<sup>e</sup> année.</span></div></div><div class='edu'><div class='s'>Université Toulouse III – Paul Sabatier (31) :</div><div class='y'>2024 – 2025 :</div><div>Master 1 Systèmes Embarqués et Connectés : Infrastructure et Logiciels (SECIL)</div></div><div class='edu'><div class='s'>Aix-Marseille Université (13) :</div><div class='y'>2022 – 2024 :</div><div>Double Licence en Mathématiques et Informatique</div></div><div class='edu'><div class='s'>Classe préparatoire, Lycée Thiers, Marseille (13) :</div><div class='y'>2020 – 2022 :</div><div>CPGE BCPST (Biologie, Chimie, Physique et Sciences de la Terre)</div></div></section>
+  <section><h2>Expériences</h2><div class='xp'><div class='t'>Kyber, Paris (75) – Apprentie ingénieure logiciel (FISA)</div><div class='y'>Depuis octobre 2025</div><ul><li>Développement d'un SDK de contrôle à distance à très faible latence (&lt; 20 ms).</li><li>Protocoles réseau basés sur QUIC et WebTransport ; code Rust/WebAssembly.</li></ul></div><div class='xp'><div class='t'>IRIT, Toulouse (31)</div><div class='y'>Mai – juillet 2025</div><ul><li>Stage de validation du M1 sur l'optimisation des XDD (eXecution Decision Diagrams)</li></ul></div><div class='xp'><div class='t'>LIS, sous tutelle du CNRS, Marseille (13)</div><div class='y'>Juin – juillet 2023</div><ul><li>Stage de validation de la double licence sur les automates probabilistes, sous la direction de M. Benjamin Monmege</li></ul></div><div class='xp'><div class='t'>Parkours, Marseille (13), Toulouse (31)</div><div class='y'>Depuis octobre 2022</div><ul><li>Tutrice Parkours : aide aux devoirs pour les lycéens.</li></ul></div></section>
+  <section><h2>Projets menés</h2><div class="proj"><div class="list"><ul><li>Intégration d'un serveur MCP avec un LLM local</li><li>Réalisation d'une maquette de voilier autonome</li></ul><div class='k'>Python :</div><ul><li>Conception d'un classifieur d'images basé sur l'IA</li><li>Implémentation d'un algorithme de réduction d'états d'un automate probabiliste</li></ul><div class='k'>Java :</div><ul><li>Implémentation d'un SAT-solver [DPLL]</li><li>Application de flashcards basée sur les cours de double licence</li></ul></div><img class="qr" src="cv-qr.png" alt="QR"></div></section>
+</div>
+</body></html>
