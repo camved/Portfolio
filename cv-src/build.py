@@ -103,16 +103,18 @@ L = {
        ("Java :", ["Implémentation d'un SAT-solver [DPLL] (projet de groupe)", "Application de flashcards basée sur les cours de double licence"])]),
 }
 
-# TUM-tailored variants (same content, summary names the destination)
+# Tailored English variants, one per mobility target (summary names the destination)
 import copy
-L["tum_en"] = copy.deepcopy(L["en"])
-L["tum_en"]["summary"] = ("<b>Second-year engineering student at ENSEEIHT</b> (Toulouse INP) in a work-study program (FISA) and apprentice software engineer at Kyber, "
- "I am applying for a <b>one-semester exchange at the Technical University of Munich (TUM)</b> in <b>Electronics &amp; automation</b> "
- "(winter semester 2027/28, October 2027 – March 2028), to deepen my skills in embedded and real-time systems on real hardware.")
-L["tum_fr"] = copy.deepcopy(L["fr"])
-L["tum_fr"]["summary"] = ("<b>Élève ingénieure en 2<sup>e</sup> année à l'ENSEEIHT</b> (Toulouse INP) en alternance (FISA) et apprentie ingénieure logiciel chez Kyber, "
- "je candidate à un <b>semestre d'échange à l'Université technique de Munich (TUM)</b> en <b>électronique et automatique</b> "
- "(semestre d'hiver 2027/28, octobre 2027 – mars 2028), pour approfondir l'embarqué et le temps réel sur du matériel réel.")
+INTRO = ("<b>Second-year engineering student at ENSEEIHT</b> (Toulouse INP) in a work-study program (FISA) and apprentice "
+         "software engineer at Kyber, I am applying for a <b>one-semester exchange (winter semester) at ")
+TAILORED = {
+ "tum_en": "the Technical University of Munich (TUM)</b> in <b>Electronics &amp; automation</b>, to deepen my skills in embedded and real-time systems on real hardware.",
+ "kth_en": "KTH Royal Institute of Technology</b> in <b>dependable embedded systems</b> (School of EECS), to strengthen my background in formal methods and safety-critical software.",
+ "ltu_en": "Lule&aring; University of Technology (LTU)</b> in <b>embedded &amp; cyber-physical systems</b>, to learn how to build robust systems for demanding environments.",
+}
+for code, end_ in TAILORED.items():
+    L[code] = copy.deepcopy(L["en"])
+    L[code]["summary"] = INTRO + end_
 
 def ul(items, cls=""):
     return f"<ul{cls}>" + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
