@@ -70,7 +70,7 @@ L = {
       ("Université Toulouse III – Paul Sabatier (31):", "2024 – 2025:", "MSc Year 1 (Embedded and Connected Systems: Infrastructure and Software)"),
       ("Aix-Marseille Université (13):", "2022 – 2024:", "Double Major in Mathematics and Computer Science"),
       ("Classe préparatoire, Lycée Thiers, Marseille (13):", "2020 – 2022:", "Intensive Preparatory Classes for Grandes Écoles (BCPST track: Biology, Chemistry, Physics and Earth Sciences)")],
- xp=[("Kyber, Paris (75) – Apprentice Software Engineer (FISA)", "Since October 2025",
+ xp=[("Kyber (Paris) – remote from Toulouse – Apprentice Software Engineer (FISA)", "Since October 2025",
       ["Developing an SDK with ultra-low latency (&lt; 20 ms) remote control capabilities.",
        "Network protocols based on QUIC and WebTransport; Rust/WebAssembly codebase."]),
      ("IRIT, Toulouse (31)", "May – July 2025", ["Master's First Year (M1) Validation Project: Optimization of eXecution Decision Diagrams (XDD)"]),
@@ -78,7 +78,7 @@ L = {
      ("Parkours Tutor, Marseille (13), Toulouse (31)", "Since October 2022", ["Academic support and homework assistance for high school students."])],
  proj=[(None, ["Integration of an MCP server with a local LLM", "Autonomous sailboat model"]),
        ("Python:", ["Design of an AI-based image classifier", "Implementation of a state-reduction algorithm for a probabilistic automaton"]),
-       ("Java:", ["Implementation of a SAT solver [DPLL]", "Flashcard application based on double major courses"])]),
+       ("Java:", ["Implementation of a SAT solver [DPLL] (group project)", "Flashcard application based on double major courses"])]),
 "fr": dict(
  lang="fr", leftTop="84mm", rightTop="58mm",
  summary="Actuellement en <b>deuxième année de cycle ingénieur à l'ENSEEIHT</b> en alternance (FISA) et apprentie ingénieure logiciel chez Kyber, je souhaite <b>effectuer un semestre d'études (6 mois) à l'étranger</b>. Passionnée par l'électronique et l'embarqué, je souhaite approfondir mes compétences techniques dans un environnement international.",
@@ -92,7 +92,7 @@ L = {
       ("Université Toulouse III – Paul Sabatier (31) :", "2024 – 2025 :", "Master 1 Systèmes Embarqués et Connectés : Infrastructure et Logiciels (SECIL)"),
       ("Aix-Marseille Université (13) :", "2022 – 2024 :", "Double Licence en Mathématiques et Informatique"),
       ("Classe préparatoire, Lycée Thiers, Marseille (13) :", "2020 – 2022 :", "CPGE BCPST (Biologie, Chimie, Physique et Sciences de la Terre)")],
- xp=[("Kyber, Paris (75) – Apprentie ingénieure logiciel (FISA)", "Depuis octobre 2025",
+ xp=[("Kyber (Paris) – en télétravail depuis Toulouse – Apprentie ingénieure logiciel (FISA)", "Depuis octobre 2025",
       ["Développement d'un SDK de contrôle à distance à très faible latence (&lt; 20 ms).",
        "Protocoles réseau basés sur QUIC et WebTransport ; code Rust/WebAssembly."]),
      ("IRIT, Toulouse (31)", "Mai – juillet 2025", ["Stage de validation du M1 sur l'optimisation des XDD (eXecution Decision Diagrams)"]),
@@ -100,8 +100,19 @@ L = {
      ("Parkours, Marseille (13), Toulouse (31)", "Depuis octobre 2022", ["Tutrice Parkours : aide aux devoirs pour les lycéens."])],
  proj=[(None, ["Intégration d'un serveur MCP avec un LLM local", "Réalisation d'une maquette de voilier autonome"]),
        ("Python :", ["Conception d'un classifieur d'images basé sur l'IA", "Implémentation d'un algorithme de réduction d'états d'un automate probabiliste"]),
-       ("Java :", ["Implémentation d'un SAT-solver [DPLL]", "Application de flashcards basée sur les cours de double licence"])]),
+       ("Java :", ["Implémentation d'un SAT-solver [DPLL] (projet de groupe)", "Application de flashcards basée sur les cours de double licence"])]),
 }
+
+# TUM-tailored variants (same content, summary names the destination)
+import copy
+L["tum_en"] = copy.deepcopy(L["en"])
+L["tum_en"]["summary"] = ("<b>Second-year engineering student at ENSEEIHT</b> (Toulouse INP) in a work-study program (FISA) and apprentice software engineer at Kyber, "
+ "I am applying for a <b>one-semester exchange at the Technical University of Munich (TUM)</b> in <b>Electronics &amp; automation</b> "
+ "(winter semester 2027/28, October 2027 – March 2028), to deepen my skills in embedded and real-time systems on real hardware.")
+L["tum_fr"] = copy.deepcopy(L["fr"])
+L["tum_fr"]["summary"] = ("<b>Élève ingénieure en 2<sup>e</sup> année à l'ENSEEIHT</b> (Toulouse INP) en alternance (FISA) et apprentie ingénieure logiciel chez Kyber, "
+ "je candidate à un <b>semestre d'échange à l'Université technique de Munich (TUM)</b> en <b>électronique et automatique</b> "
+ "(semestre d'hiver 2027/28, octobre 2027 – mars 2028), pour approfondir l'embarqué et le temps réel sur du matériel réel.")
 
 def ul(items, cls=""):
     return f"<ul{cls}>" + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
